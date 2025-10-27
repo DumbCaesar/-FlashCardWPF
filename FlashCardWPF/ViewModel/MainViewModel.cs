@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using FlashCardWPF.Model;
+using FlashCardWPF.View;
 
 namespace FlashCardWPF.ViewModel
 {
@@ -37,7 +38,9 @@ namespace FlashCardWPF.ViewModel
 
         private void OnDeckDoubleClick(Deck? deck)
         {
-            MessageBox.Show("Test");
+            var cardViewModel = new CardViewModel(SelectedDeck);
+            var cardView = new CardView { DataContext = cardViewModel };
+            cardView.Show();
         }
     }
 }

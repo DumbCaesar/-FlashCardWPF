@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FlashCardWPF.ViewModel;
 
 namespace FlashCardWPF.View
 {
@@ -19,6 +20,7 @@ namespace FlashCardWPF.View
     /// </summary>
     public partial class CardView : Window
     {
+      
         public CardView()
         {
             InitializeComponent();
