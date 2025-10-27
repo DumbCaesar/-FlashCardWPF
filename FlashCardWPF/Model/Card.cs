@@ -11,7 +11,7 @@ namespace FlashCardWPF.Model
         public string Front {  get; set; }
         public string Back { get; set; }
 
-        public DateTime ShowCardWhen { get; set; }
+        public DateTime ShowCardWhen { get; set; } = DateTime.Now;
 
         public Card(string question, string answer)
         {
