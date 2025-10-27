@@ -1,0 +1,43 @@
+﻿<Window x:Class="FlashCardWPF.View.CardView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlashCardWPF.View"
+        mc:Ignorable="d"
+        Title="CardView" Height="330" Width="500">
+    <StackPanel HorizontalAlignment="Center">
+        <Grid VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Decks" Grid.Column="0" Margin="5"/>
+            <Button Content="Add" Grid.Column="1" Margin="5"/>
+            <Button Content="Browse" Grid.Column="2" Margin="5"/>
+            <Button Content="Stats" Grid.Column="3" Margin="5"/>
+            <Button Content="Sync" Grid.Column="4" Margin="5"/>
+        </Grid>
+        <Label Content="Front" HorizontalAlignment="Center" Margin="0 10 0 5"/>
+        <Line X1="0" Y1="0" X2="200" Y2="0" 
+      Stroke="Black" 
+      StrokeThickness="1" />
+        <Label Content="Answer" HorizontalAlignment="Center" Margin="0 5 0 10"/>
+        
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Again" Grid.Column="0" Margin="0 5 5 0"/>
+            <Button Content="Hard" Grid.Column="1" Margin="5 5 5 0"/>
+            <Button Content="Good" Grid.Column="2" Margin="5 5 0 0"/>
+            <Button Content="Easy" Grid.Column="3" Margin="5 5 0 0"/>
+        </Grid>
+    </StackPanel>
+</Window>
