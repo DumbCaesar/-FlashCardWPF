@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using FlashCardWPF.ViewModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +17,12 @@ namespace FlashCardWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
+            viewModel = new MainViewModel();
+            DataContext = viewModel;
         }
     }
 }
