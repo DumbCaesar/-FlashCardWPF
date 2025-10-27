@@ -1,16 +1,20 @@
-﻿using FlashCardWPF.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using FlashCardWPF.Model;
 
 namespace FlashCardWPF.ViewModel
 {
     public class MainViewModel
     {
-        public ObservableCollection<Deck> Decks { get ; set; }        
+        public ObservableCollection<Deck> Decks { get ; set; } 
+        public Deck? SelectedDeck { get; set; }
+        public ICommand DeckDoubleClickCommand { get; }
 
 
         public MainViewModel()
@@ -26,6 +30,14 @@ namespace FlashCardWPF.ViewModel
             math.Cards.Add(question2);
 
             Decks.Add(math);
+
+            DeckDoubleClickCommand = new RelayCommand(
+                _ => OnDeckDoubleClick(math));
+        }
+
+        private void OnDeckDoubleClick(Deck? deck)
+        {
+            MessageBox.Show("Test");
         }
     }
 }
