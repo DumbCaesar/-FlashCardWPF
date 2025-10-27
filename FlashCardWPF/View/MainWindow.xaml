@@ -21,7 +21,7 @@
             <Button Content="Stats" Grid.Column="3" Margin="5"/>
             <Button Content="Sync" Grid.Column="4" Margin="5"/>
         </Grid>
-        <ListBox Width="400" Height="200" />
+        <ListBox x:Name="DecksListBox" ItemsSource="{Binding Decks}"  Width="400" Height="200" />
         <Label Content="Temp" HorizontalAlignment="Center" Margin="0 5 0 0"/>
         <Grid HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
