@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:FlashCardWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="330" Width="500">
@@ -21,7 +22,14 @@
             <Button Content="Stats" Grid.Column="3" Margin="5"/>
             <Button Content="Sync" Grid.Column="4" Margin="5"/>
         </Grid>
-        <ListBox x:Name="DecksListBox" ItemsSource="{Binding Decks}"  Width="400" Height="200" />
+        <ListBox x:Name="DecksListBox" ItemsSource="{Binding Decks}"  Width="400" Height="200" SelectedItem="{Binding SelectedDeck, Mode=TwoWay}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding DeckDoubleClickCommand}"
+                                           CommandParameter="{Binding SelectedDeck}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListBox>
         <Label Content="Temp" HorizontalAlignment="Center" Margin="0 5 0 0"/>
         <Grid HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
