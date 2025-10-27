@@ -12,5 +12,13 @@ namespace FlashCardWPF.Model
         public string Back { get; set; }
 
         public DateTime ShowCardWhen { get; set; }
+
+        public Card(string question, string answer)
+        {
+            Front = question;
+            Back = answer;
+        }
+
+        
     }
 }
