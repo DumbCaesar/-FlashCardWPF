@@ -60,7 +60,7 @@ namespace FlashCardWPF.ViewModel
         {
             CurrentDeck = LoadDeck(deckName);
             ShowAnswersCommand = new RelayCommand(_ => ShowAnswers());
-            NextQuestionCommand = new RelayCommand(param => GoToNextQuestion(param));
+            NextQuestionCommand = new RelayCommand(param => GoToNextQuestion(param!));
             ReviewDeck = CreateReviewDeck(CurrentDeck);
             Debug.WriteLine(ReviewDeck.Cards.Count);
             CurrentCard = SetNextCard(ReviewDeck);
@@ -76,10 +76,22 @@ namespace FlashCardWPF.ViewModel
             Debug.WriteLine($"Caller is {param}");
             Button button = (Button)param;
             string caller = button.Content.ToString()!;
-            
+
+            switch (caller)
+            {
+                case "Again":
+                    break;
+                case "Hard":
+                    break;
+                case "Good":
+                    break;
+                case "Easy":
+                    break;
+            }
 
 
-            AreAnswersVisible = false;
+
+                AreAnswersVisible = false;
             CurrentCard = SetNextCard(ReviewDeck);
         }
 
