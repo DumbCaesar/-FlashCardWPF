@@ -77,8 +77,20 @@ namespace FlashCardWPF.ViewModel
         {
             Debug.WriteLine($"Caller is {param}");
             Button button = (Button)param;
-            string caller = button.Content.ToString();
-            
+            string caller = button.Content.ToString()!;
+
+            switch (caller)
+            {
+                case "Again":
+                    break;
+                case "Hard":
+                    break;
+                case "Good":
+                    break;
+                case "Easy":
+                    break;
+            }
+
 
 
             AreAnswersVisible = false;
