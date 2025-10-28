@@ -1,0 +1,65 @@
+{
+  "name": "Spanish Vocabulary",
+  "cards": [
+    {
+      "front": "Hello",
+      "back": "Hola",
+      "nextReview": "2024-10-28T10:00:00",
+      "isNew": true
+    },
+    {
+      "front": "Goodbye",
+      "back": "Adiós",
+      "nextReview": "2024-10-28T14:30:00",
+      "isNew": true
+    },
+    {
+      "front": "Please",
+      "back": "Por favor",
+      "nextReview": "2024-10-29T09:00:00",
+      "isNew": false
+    },
+    {
+      "front": "Thank you",
+      "back": "Gracias",
+      "nextReview": "2024-10-28T16:00:00",
+      "isNew": true
+    },
+    {
+      "front": "Yes",
+      "back": "Sí",
+      "nextReview": "2024-10-30T11:00:00",
+      "isNew": false
+    },
+    {
+      "front": "No",
+      "back": "No",
+      "nextReview": "2024-10-28T13:00:00",
+      "isNew": true
+    },
+    {
+      "front": "Water",
+      "back": "Agua",
+      "nextReview": "2024-10-29T15:30:00",
+      "isNew": false
+    },
+    {
+      "front": "Food",
+      "back": "Comida",
+      "nextReview": "2024-10-28T17:00:00",
+      "isNew": true
+    },
+    {
+      "front": "Friend",
+      "back": "Amigo/Amiga",
+      "nextReview": "2024-10-31T10:00:00",
+      "isNew": false
+    },
+    {
+      "front": "House",
+      "back": "Casa",
+      "nextReview": "2024-10-28T12:00:00",
+      "isNew": true
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,30 +14,27 @@ namespace FlashCardWPF.ViewModel
 {
     public class MainViewModel
     {
-        public ObservableCollection<Deck> Decks { get ; set; } 
-        public Deck? SelectedDeck { get; set; }
+        public ObservableCollection<string> Decks { get ; set; } 
+        public string? SelectedDeck { get; set; }
         public ICommand DeckDoubleClickCommand { get; }
 
 
         public MainViewModel()
         {
-            Decks = new ObservableCollection<Deck>();
-
-            Card question1 = new Card("2 + 2", "4");
-            Card question2 = new Card("2 + 6", "8");
-
-            Deck math = new Deck("Math");
-
-            math.Cards.Add(question1);
-            math.Cards.Add(question2);
-
-            Decks.Add(math);
+            Decks = new ObservableCollection<string>();
+            string projectRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
+            string dataPath = Path.Combine(projectRoot, "Data");
+            string[] files = Directory.GetFiles(dataPath);
+            foreach(string file in files)
+            {
+                Decks.Add(Path.GetFileNameWithoutExtension(file));
+            }
 
             DeckDoubleClickCommand = new RelayCommand(
-                _ => OnDeckDoubleClick(math));
+                _ => OnDeckDoubleClick());
         }
 
-        private void OnDeckDoubleClick(Deck? deck)
+        private void OnDeckDoubleClick()
         {
             var cardViewModel = new CardViewModel(SelectedDeck);
             var cardView = new CardView { DataContext = cardViewModel };

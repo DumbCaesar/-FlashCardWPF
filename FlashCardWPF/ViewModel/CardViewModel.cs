@@ -1,11 +1,16 @@
-﻿using FlashCardWPF.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using FlashCardWPF.Model;
 
 namespace FlashCardWPF.ViewModel
 {
@@ -15,10 +20,12 @@ namespace FlashCardWPF.ViewModel
         public Deck ReviewDeck { get; set; }
         public Card CurrentCard { get; set; }
 
-        public CardViewModel(Deck deck)
+        public CardViewModel(string deckName)
         {
-            CurrentDeck = deck;
+            CurrentDeck = LoadDeck(deckName);
+            Debug.WriteLine(CurrentDeck.Cards.Count);
             ReviewDeck = CreateReviewDeck(CurrentDeck);
+            Debug.WriteLine(ReviewDeck.Cards.Count);
             CurrentCard = SetNextCard(ReviewDeck);
         }
 
@@ -35,7 +42,7 @@ namespace FlashCardWPF.ViewModel
                     newDeck.Cards.Add(card);
                     newCardCounter++;
                 }
-                else if (card.NextReview > DateTime.Now) newDeck.Cards.Add(card);
+                else if (!card.IsNew && DateTime.Now >= card.NextReview) newDeck.Cards.Add(card);
                 i++;
             }
             return newDeck;
@@ -44,6 +51,22 @@ namespace FlashCardWPF.ViewModel
         public Card SetNextCard(Deck deck)
         {
             return deck.Cards[0];
+        }
+
+        public Deck LoadDeck(string deckName)
+        {
+            string baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
+            string dataDir = Path.Combine(baseDir, "Data");
+            string filePath = Path.Combine(dataDir, $"{deckName}.json");
+            var json = File.ReadAllText(filePath);
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+            };
+
+            var deck = JsonSerializer.Deserialize<Deck>(json, options);
+            Debug.WriteLine(deck.Cards.Count);
+            return deck;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

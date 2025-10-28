@@ -8,17 +8,16 @@ namespace FlashCardWPF.Model
 {
     public class Card
     {
-        public string Front {  get; set; }
-        public string Back { get; set; }
+        public string? Front {  get; set; }
+        public string? Back { get; set; }
 
         public DateTime NextReview { get; set; } = DateTime.Now;
-        public bool IsNew = true;
+        public bool IsNew { get; set; } = true;
+        public Card() { }
         public Card(string question, string answer)
         {
             Front = question;
             Back = answer;
         }
-
-        
     }
 }
