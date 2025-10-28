@@ -7,6 +7,24 @@
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
         Title="CardView" Height="360" Width="500">
+    <Window.Resources>
+        <Style x:Key="AnswerButtonStyle" TargetType="Border">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding AreAnswersVisible}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="AnswerLabelStyle" TargetType="Label">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding AreAnswersVisible}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <StackPanel VerticalAlignment="Top">
             <Border CornerRadius="25" BorderBrush="Black" BorderThickness="1" Background="White" Margin="10" HorizontalAlignment="Center">
@@ -31,7 +49,7 @@
             <Line HorizontalAlignment="Center" X1="0" Y1="0" X2="200" Y2="0" 
 Stroke="Black" 
 StrokeThickness="1" />
-            <Label Content="{Binding CurrentCard.Back}" HorizontalAlignment="Center" Margin="0 5 0 40"/>
+            <Label Content="{Binding CurrentCard.Back}" HorizontalAlignment="Center" Margin="0 5 0 40" Style="{StaticResource AnswerLabelStyle}"/>
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -39,16 +57,20 @@ StrokeThickness="1" />
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="17" Margin="5" Background="Red">
+
+                <Border Grid.Column="1" Visibility="{Binding AreAnswersVisible, Converter={x:Static local:BoolToInverseVisibilityConverter.Instance}}" x:Name="BtnShow" Grid.ColumnSpan="2" CornerRadius="17" BorderThickness="1" BorderBrush="Black">
+                <Button Content="Show" Width="50" Command="{Binding ShowAnswersCommand}" Height="30" FontWeight="Bold" Background="White" BorderThickness="0"/>
+                </Border>
+                <Border BorderBrush="Black" Style="{StaticResource AnswerButtonStyle}" x:Name="BtnAgain" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="17" Margin="5" Background="Red">
                     <Button Content="Again" Grid.Column="0" Margin="5" BorderThickness="0" Background="Red" FontWeight="Bold"/>
                 </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" CornerRadius="17" Grid.Column="1" Margin="5" Background="MediumPurple">
+                <Border BorderBrush="Black" Style="{StaticResource AnswerButtonStyle}" x:Name="BtnHard" BorderThickness="1" VerticalAlignment="Center" CornerRadius="17" Grid.Column="1" Margin="5" Background="MediumPurple">
                     <Button Content="Hard" Grid.Column="1" Margin="5" BorderThickness="0" Background="MediumPurple" FontWeight="Bold"/>
                 </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" CornerRadius="17" Grid.Column="2" Margin="5" Background="LawnGreen">
+                <Border BorderBrush="Black" Style="{StaticResource AnswerButtonStyle}" x:Name="BtnGood" BorderThickness="1" VerticalAlignment="Center" CornerRadius="17" Grid.Column="2" Margin="5" Background="LawnGreen">
                     <Button Content="Good" Grid.Column="2" Margin="5" BorderThickness="0" Background="LawnGreen" FontWeight="Bold"/>
                 </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" CornerRadius="17" Grid.Column="3" Margin="5" Background="Cyan">
+                <Border BorderBrush="Black" Style="{StaticResource AnswerButtonStyle}" x:Name="BtnEasy" BorderThickness="1" VerticalAlignment="Center" CornerRadius="17" Grid.Column="3" Margin="5" Background="Cyan">
                     <Button Content="Easy" Grid.Column="3" Margin="5" BorderThickness="0" Background="Cyan" FontWeight="Bold"/>
                 </Border>
             </Grid>

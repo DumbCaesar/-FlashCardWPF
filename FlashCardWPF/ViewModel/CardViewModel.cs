@@ -6,20 +6,44 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace FlashCardWPF.ViewModel
 {
     public class CardViewModel : INotifyPropertyChanged
     {
+        private bool _areAnswersVisible; 
+
+        public bool AreAnswersVisible
+        {
+            get => _areAnswersVisible;
+            set
+            {
+                if (_areAnswersVisible != value)
+                {
+                    _areAnswersVisible = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ICommand ShowAnswersCommand { get; }
+
         public Deck CurrentDeck { get; }
         public Deck ReviewDeck { get; set; }
         public Card CurrentCard { get; set; }
 
         public CardViewModel(Deck deck)
         {
+            ShowAnswersCommand = new RelayCommand(_ => ShowAnswers());
             CurrentDeck = deck;
             ReviewDeck = CreateReviewDeck(CurrentDeck);
             CurrentCard = SetNextCard(ReviewDeck);
+        }
+
+        private void ShowAnswers()
+        {
+            AreAnswersVisible = true;
         }
 
         public Deck CreateReviewDeck(Deck deck)
