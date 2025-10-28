@@ -42,16 +42,16 @@ StrokeThickness="1" />
                 <Border Grid.Column="1" Grid.ColumnSpan="2" CornerRadius="17" BorderThickness="1" BorderBrush="Black">
                 <Button Content="Show" Width="50" Height="30" FontWeight="Bold" Background="White" BorderThickness="0"/>
                 </Border>
-                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="17" Margin="5" Background="Red">
+                <Border BorderBrush="Black" x:Name="BtnAgain" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="17" Margin="5" Background="Red" Visibility="Hidden">
                     <Button Content="Again" Grid.Column="0" Margin="5" BorderThickness="0" Background="Red" FontWeight="Bold"/>
                 </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" CornerRadius="17" Grid.Column="1" Margin="5" Background="MediumPurple">
+                <Border BorderBrush="Black" x:Name="BtnHard" BorderThickness="1" VerticalAlignment="Center" CornerRadius="17" Grid.Column="1" Margin="5" Background="MediumPurple" Visibility="Hidden">
                     <Button Content="Hard" Grid.Column="1" Margin="5" BorderThickness="0" Background="MediumPurple" FontWeight="Bold"/>
                 </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" CornerRadius="17" Grid.Column="2" Margin="5" Background="LawnGreen">
+                <Border BorderBrush="Black" x:Name="BtnGood" BorderThickness="1" VerticalAlignment="Center" CornerRadius="17" Grid.Column="2" Margin="5" Background="LawnGreen" Visibility="Hidden">
                     <Button Content="Good" Grid.Column="2" Margin="5" BorderThickness="0" Background="LawnGreen" FontWeight="Bold"/>
                 </Border>
-                <Border BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" CornerRadius="17" Grid.Column="3" Margin="5" Background="Cyan">
+                <Border BorderBrush="Black" x:Name="BtnEasy" BorderThickness="1" VerticalAlignment="Center" CornerRadius="17" Grid.Column="3" Margin="5" Background="Cyan" Visibility="Hidden">
                     <Button Content="Easy" Grid.Column="3" Margin="5" BorderThickness="0" Background="Cyan" FontWeight="Bold"/>
                 </Border>
             </Grid>
