@@ -21,11 +21,11 @@
             <Button Content="Stats" Grid.Column="3" Margin="5"/>
             <Button Content="Sync" Grid.Column="4" Margin="5"/>
         </Grid>
-        <Label Content="Front" HorizontalAlignment="Center" Margin="0 10 0 5"/>
+        <Label Content="{Binding CurrentCard.Front}" HorizontalAlignment="Center" Margin="0 10 0 5"/>
         <Line X1="0" Y1="0" X2="200" Y2="0" 
       Stroke="Black" 
       StrokeThickness="1" />
-        <Label Content="Answer" HorizontalAlignment="Center" Margin="0 5 0 10"/>
+        <Label Content="{Binding CurrentCard.Back}" HorizontalAlignment="Center" Margin="0 5 0 10"/>
         
         <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
