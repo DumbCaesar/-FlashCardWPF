@@ -6,7 +6,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:FlashCardWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="360" Width="500">
+        Title="Flashcard App" Height="360" Width="500" ResizeMode="CanMinimize">
     <StackPanel HorizontalAlignment="Center">
         <Border CornerRadius="25" BorderBrush="Black" BorderThickness="1" Background="White" Margin="10">
             <Grid VerticalAlignment="Top">
