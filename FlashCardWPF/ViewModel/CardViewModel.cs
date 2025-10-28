@@ -42,7 +42,9 @@ namespace FlashCardWPF.ViewModel
         public ICommand NextQuestionCommand { get; }
 
         public Deck CurrentDeck { get; }
-        public Deck ReviewDeck { get; set; }
+        public Queue<Card> LearningCards { get; set; } = new Queue<Card>();
+        public Queue<Card> ReviewCards { get; set; }
+        public Queue<Card> NewCards { get; set; }
         public Card CurrentCard
         {
             get => _currentCard;
@@ -60,10 +62,10 @@ namespace FlashCardWPF.ViewModel
         {
             CurrentDeck = LoadDeck(deckName);
             ShowAnswersCommand = new RelayCommand(_ => ShowAnswers());
-            NextQuestionCommand = new RelayCommand(param => GoToNextQuestion(param!));
-            ReviewDeck = CreateReviewDeck(CurrentDeck);
-            Debug.WriteLine(ReviewDeck.Cards.Count);
-            CurrentCard = SetNextCard(ReviewDeck);
+            NextQuestionCommand = new RelayCommand(param => GoToNextQuestion(param));
+            ReviewCards = CreateReviewDeck(CurrentDeck);
+            NewCards = CreateNewCardDeck(CurrentDeck);
+            CurrentCard = SetNextCard();
         }
 
         private void ShowAnswers()
@@ -91,13 +93,27 @@ namespace FlashCardWPF.ViewModel
 
 
 
-                AreAnswersVisible = false;
-            CurrentCard = SetNextCard(ReviewDeck);
+            AreAnswersVisible = false;
+            CurrentCard = SetNextCard();
         }
 
-        public Deck CreateReviewDeck(Deck deck)
+        public Queue<Card> CreateReviewDeck(Deck deck)
         {
-            Deck newDeck = new Deck("test");
+            Queue<Card> newDeck = new Queue<Card>();
+            int i = 0;
+            while (i < deck.Cards.Count)
+            {
+                Card card = deck.Cards[i];
+                if (!card.IsNew && DateTime.Now >= card.NextReview) newDeck.Enqueue(card);
+                i++;
+            }
+            Debug.WriteLine($"{newDeck.Count} cards in Review Deck");
+            return newDeck;
+        }
+
+        public Queue<Card> CreateNewCardDeck(Deck deck)
+        {
+            Queue<Card> newDeck = new Queue<Card>();
             int newCardCounter = 0;
             int i = 0;
             while (i < deck.Cards.Count)
@@ -105,23 +121,23 @@ namespace FlashCardWPF.ViewModel
                 Card card = deck.Cards[i];
                 if (card.IsNew && newCardCounter < 10)
                 {
-                    newDeck.Cards.Add(card);
+                    newDeck.Enqueue(card);
                     newCardCounter++;
                 }
-                else if (!card.IsNew && DateTime.Now >= card.NextReview) newDeck.Cards.Add(card);
                 i++;
             }
+            Debug.WriteLine($"{newDeck.Count} cards in New Deck");
             return newDeck;
         }
 
-        public Card SetNextCard(Deck deck)
+        public Card SetNextCard()
         {
-            for (int i = _pos; i < deck.Cards.Count;)
-            {
-                _pos++;
-                return deck.Cards[i];
-            }
-            return null;
+            Card card = null;
+            if (LearningCards.Count != 0) card = LearningCards.Dequeue();
+            else if (ReviewCards.Count != 0) card = ReviewCards.Dequeue();
+            else if (NewCards.Count != 0) card = NewCards.Dequeue();
+            Debug.WriteLine($"Queue returns card {card}");
+            return card;
         }
 
         public Deck LoadDeck(string deckName)
@@ -136,7 +152,6 @@ namespace FlashCardWPF.ViewModel
             };
 
             var deck = JsonSerializer.Deserialize<Deck>(json, options);
-            Debug.WriteLine(deck.Cards.Count);
             return deck;
         }
 
