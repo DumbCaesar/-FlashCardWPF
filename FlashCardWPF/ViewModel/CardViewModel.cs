@@ -75,7 +75,7 @@ namespace FlashCardWPF.ViewModel
         {
             Debug.WriteLine($"Caller is {param}");
             Button button = (Button)param;
-            string caller = button.Content.ToString();
+            string caller = button.Content.ToString()!;
             
 
 
