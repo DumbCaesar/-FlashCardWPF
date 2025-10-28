@@ -11,11 +11,29 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using FlashCardWPF.Model;
+using System.Windows.Input;
 
 namespace FlashCardWPF.ViewModel
 {
     public class CardViewModel : INotifyPropertyChanged
     {
+        private bool _areAnswersVisible; 
+
+        public bool AreAnswersVisible
+        {
+            get => _areAnswersVisible;
+            set
+            {
+                if (_areAnswersVisible != value)
+                {
+                    _areAnswersVisible = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ICommand ShowAnswersCommand { get; }
+
         public Deck CurrentDeck { get; }
         public Deck ReviewDeck { get; set; }
         public Card CurrentCard { get; set; }
@@ -23,10 +41,15 @@ namespace FlashCardWPF.ViewModel
         public CardViewModel(string deckName)
         {
             CurrentDeck = LoadDeck(deckName);
-            Debug.WriteLine(CurrentDeck.Cards.Count);
+            ShowAnswersCommand = new RelayCommand(_ => ShowAnswers());
             ReviewDeck = CreateReviewDeck(CurrentDeck);
             Debug.WriteLine(ReviewDeck.Cards.Count);
             CurrentCard = SetNextCard(ReviewDeck);
+        }
+
+        private void ShowAnswers()
+        {
+            AreAnswersVisible = true;
         }
 
         public Deck CreateReviewDeck(Deck deck)
