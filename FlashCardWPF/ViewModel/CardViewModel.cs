@@ -12,6 +12,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using FlashCardWPF.Model;
 using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace FlashCardWPF.ViewModel
 {
@@ -59,7 +60,7 @@ namespace FlashCardWPF.ViewModel
         {
             CurrentDeck = LoadDeck(deckName);
             ShowAnswersCommand = new RelayCommand(_ => ShowAnswers());
-            NextQuestionCommand = new RelayCommand(_ => GoToNextQuestion());
+            NextQuestionCommand = new RelayCommand(param => GoToNextQuestion(param));
             ReviewDeck = CreateReviewDeck(CurrentDeck);
             Debug.WriteLine(ReviewDeck.Cards.Count);
             CurrentCard = SetNextCard(ReviewDeck);
@@ -70,8 +71,14 @@ namespace FlashCardWPF.ViewModel
             AreAnswersVisible = true;
         }
 
-        private void GoToNextQuestion()
+        private void GoToNextQuestion(object param)
         {
+            Debug.WriteLine($"Caller is {param}");
+            Button button = (Button)param;
+            string caller = button.Content.ToString();
+            
+
+
             AreAnswersVisible = false;
             CurrentCard = SetNextCard(ReviewDeck);
         }
