@@ -17,7 +17,11 @@ namespace FlashCardWPF.ViewModel
 {
     public class CardViewModel : INotifyPropertyChanged
     {
-        private bool _areAnswersVisible; 
+        private int _pos = 0;
+
+        private bool _areAnswersVisible;
+
+        private Card _currentCard;
 
         public bool AreAnswersVisible
         {
@@ -34,14 +38,28 @@ namespace FlashCardWPF.ViewModel
 
         public ICommand ShowAnswersCommand { get; }
 
+        public ICommand NextQuestionCommand { get; }
+
         public Deck CurrentDeck { get; }
         public Deck ReviewDeck { get; set; }
-        public Card CurrentCard { get; set; }
+        public Card CurrentCard
+        {
+            get => _currentCard;
+            set
+            {
+                if (_currentCard != value)
+                {
+                    _currentCard = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public CardViewModel(string deckName)
         {
             CurrentDeck = LoadDeck(deckName);
             ShowAnswersCommand = new RelayCommand(_ => ShowAnswers());
+            NextQuestionCommand = new RelayCommand(_ => GoToNextQuestion());
             ReviewDeck = CreateReviewDeck(CurrentDeck);
             Debug.WriteLine(ReviewDeck.Cards.Count);
             CurrentCard = SetNextCard(ReviewDeck);
@@ -50,6 +68,12 @@ namespace FlashCardWPF.ViewModel
         private void ShowAnswers()
         {
             AreAnswersVisible = true;
+        }
+
+        private void GoToNextQuestion()
+        {
+            AreAnswersVisible = false;
+            CurrentCard = SetNextCard(ReviewDeck);
         }
 
         public Deck CreateReviewDeck(Deck deck)
@@ -73,7 +97,12 @@ namespace FlashCardWPF.ViewModel
 
         public Card SetNextCard(Deck deck)
         {
-            return deck.Cards[0];
+            for (int i = _pos; i < deck.Cards.Count;)
+            {
+                _pos++;
+                return deck.Cards[i];
+            }
+            return null;
         }
 
         public Deck LoadDeck(string deckName)

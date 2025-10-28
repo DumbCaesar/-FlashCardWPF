@@ -68,7 +68,7 @@ StrokeThickness="1" />
                     <Button Content="Hard" Grid.Column="1" Margin="5" BorderThickness="0" Background="MediumPurple" FontWeight="Bold"/>
                 </Border>
                 <Border BorderBrush="Black" Style="{StaticResource AnswerButtonStyle}" x:Name="BtnGood" BorderThickness="1" VerticalAlignment="Center" CornerRadius="17" Grid.Column="2" Margin="5" Background="LawnGreen">
-                    <Button Content="Good" Grid.Column="2" Margin="5" BorderThickness="0" Background="LawnGreen" FontWeight="Bold"/>
+                    <Button Command="{Binding NextQuestionCommand}" Content="Good" Grid.Column="2" Margin="5" BorderThickness="0" Background="LawnGreen" FontWeight="Bold"/>
                 </Border>
                 <Border BorderBrush="Black" Style="{StaticResource AnswerButtonStyle}" x:Name="BtnEasy" BorderThickness="1" VerticalAlignment="Center" CornerRadius="17" Grid.Column="3" Margin="5" Background="Cyan">
                     <Button Content="Easy" Grid.Column="3" Margin="5" BorderThickness="0" Background="Cyan" FontWeight="Bold"/>
