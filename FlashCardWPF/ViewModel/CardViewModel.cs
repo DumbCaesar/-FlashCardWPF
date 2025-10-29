@@ -66,7 +66,7 @@ namespace FlashCardWPF.ViewModel
         public ICommand NextQuestionCommand { get; }
 
         public Deck CurrentDeck { get; }
-        public List<Card> LearningCards { get; set; } = new List<Card>();
+        public PriorityQueue<Card, DateTime> LearningCards { get; set; } = new PriorityQueue<Card, DateTime>();
         public Queue<Card> ReviewCards { get; set; }
         public Queue<Card> NewCards { get; set; }
         public Card CurrentCard
@@ -135,11 +135,11 @@ namespace FlashCardWPF.ViewModel
             {
                 case "Again":
                     CurrentCard.NextReview = DateTime.Now.AddMinutes(SpacedRepetitionConstants.AGAIN_NEW_CARD_MINUTES);
-                    LearningCards.Add(CurrentCard);
+                    LearningCards.Enqueue(CurrentCard, CurrentCard.NextReview);
                     break;
                 case "Hard":
                     CurrentCard.NextReview = DateTime.Now.AddMinutes(SpacedRepetitionConstants.HARD_NEW_CARD_MINUTES);
-                    LearningCards.Add(CurrentCard);
+                    LearningCards.Enqueue(CurrentCard, CurrentCard.NextReview);
                     break;
                 case "Good":
                     CurrentCard.NextReview = DateTime.Now.AddDays(SpacedRepetitionConstants.GOOD_NEW_CARD_DAYS);
@@ -164,14 +164,14 @@ namespace FlashCardWPF.ViewModel
                     CurrentCard.NextReview = DateTime.Now.AddMinutes(SpacedRepetitionConstants.AGAIN_REVIEW_MINUTES);
                     CurrentCard.Interval = 0;
                     CurrentCard.EaseFactor = Math.Max(SpacedRepetitionConstants.MIN_EASE_FACTOR, easeFactor - SpacedRepetitionConstants.AGAIN_EASE_PENALTY);
-                    LearningCards.Add(CurrentCard);
+                    LearningCards.Enqueue(CurrentCard, CurrentCard.NextReview);
                     break;
                 case "Hard":
                     interval = (int)(interval * SpacedRepetitionConstants.HARD_INTERVAL_MULTIPLIER);
                     CurrentCard.NextReview = DateTime.Now.AddDays(interval);
                     CurrentCard.Interval = interval;
                     CurrentCard.EaseFactor = Math.Max(SpacedRepetitionConstants.MIN_EASE_FACTOR, easeFactor - SpacedRepetitionConstants.HARD_EASE_PENALTY);
-                    LearningCards.Add(CurrentCard);
+                    LearningCards.Enqueue(CurrentCard, CurrentCard.NextReview);
                     break;
                 case "Good":
                     interval = (int)(interval * easeFactor);
@@ -243,41 +243,26 @@ namespace FlashCardWPF.ViewModel
         public Card SetNextCard()
         {
             Card card = null;
-            if (LearningCards.Count != 0)
+            if (LearningCards.Count > 0 &&
+                LearningCards.TryPeek(out Card topCard, out DateTime priority) &&
+                DateTime.Now >= priority) // Check for due card
             {
-                // Check for due card
-                for (int i = 0; i < LearningCards.Count; i++)
-                {
-                    if (DateTime.Now > LearningCards[i].NextReview)
-                    {
-                        card = LearningCards[i];
-                        LearningCards.RemoveAt(i);
-                        return card;
-                    }
-                }
+                return LearningCards.Dequeue();
             }
             
             if (ReviewCards.Count != 0)
             {
-                card = ReviewCards.Dequeue(); // get next review card
-                return card;
+                return ReviewCards.Dequeue(); // get next review card
             }
             
             if (NewCards.Count != 0)
             {
-                card = NewCards.Dequeue(); // get next new card
-                return card;
+                return NewCards.Dequeue(); // get next new card
             } 
             
             if (LearningCards.Count != 0)  // if no due cards in learning, no review, no next then get next from learning
             {
-                card = LearningCards[0];
-                for (int i = 0; i < LearningCards.Count; i++) // get lowest review date
-                {
-                    if (LearningCards[i].NextReview < card.NextReview) card = LearningCards[i];
-                }
-                LearningCards.Remove(card);
-                return card;
+                return LearningCards.Dequeue();
             }
             return null;
         }
