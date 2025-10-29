@@ -18,8 +18,9 @@ namespace FlashCardWPF.ViewModel
 {
     public class CardViewModel : INotifyPropertyChanged
     {
-        private int _pos = 0;
-
+        private DateTime _startTime;
+        private bool _sessionActive = true;
+        private int _cardCount = 0;
         private bool _areAnswersVisible;
 
         private Card _currentCard;
@@ -66,6 +67,7 @@ namespace FlashCardWPF.ViewModel
             ReviewCards = CreateReviewDeck(CurrentDeck);
             NewCards = CreateNewCardDeck(CurrentDeck);
             CurrentCard = SetNextCard();
+            _startTime = DateTime.Now;
         }
 
         private void ShowAnswers()
@@ -75,6 +77,21 @@ namespace FlashCardWPF.ViewModel
 
         private void GoToNextQuestion(object param)
         {
+            AreAnswersVisible = false;
+            CurrentCard = SetNextCard();
+
+            TimeSpan studyTime = StudyTime();
+            TimeSpan studyTimePerCard = StudyTimePerCard(studyTime);
+
+            if(studyTime != TimeSpan.Zero)
+            {
+                Debug.WriteLine($"Seassion complet! Total time is: {studyTime}");
+            }
+            if (studyTimePerCard != TimeSpan.Zero)
+            {
+                Debug.WriteLine($"Seassion complet! Total time per card is: {studyTimePerCard}");
+            }
+
             Debug.WriteLine($"Caller is {param}");
             Button button = (Button)param;
             string caller = button.Content.ToString()!;
@@ -86,15 +103,56 @@ namespace FlashCardWPF.ViewModel
                 case "Hard":
                     break;
                 case "Good":
+                    CurrentCard.NextReview = DateTime.Now.AddMinutes(2);
                     break;
                 case "Easy":
                     break;
             }
+        }
 
+        public TimeSpan StudyTime()
+        {
+            if (HasCardsLeft())
+            {
+                return TimeSpan.Zero;
+            }
+            else
+            {
+                _sessionActive = false;
+                DateTime endTime = DateTime.Now;
+                TimeSpan totalTime = endTime - _startTime;
 
+                Debug.WriteLine($"Study time: {totalTime}");
+                return totalTime;
+            }
+        }
 
-            AreAnswersVisible = false;
-            CurrentCard = SetNextCard();
+        public TimeSpan StudyTimePerCard(TimeSpan timeSpan)
+        {
+            if(HasCardsLeft())
+            {
+                _cardCount++;
+                return TimeSpan.Zero;
+            }
+            else
+            {
+                if(_cardCount == 0)
+                {
+                    return TimeSpan.Zero;
+                }
+
+                TimeSpan timePerCard = TimeSpan.FromSeconds(timeSpan.TotalSeconds / _cardCount);
+                return timePerCard;
+            }
+
+        }
+
+        private bool HasCardsLeft()
+        {
+            return
+                (LearningCards?.Count > 0) ||
+                (ReviewCards?.Count > 0) ||
+                (NewCards?.Count > 0);
         }
 
         public Queue<Card> CreateReviewDeck(Deck deck)
