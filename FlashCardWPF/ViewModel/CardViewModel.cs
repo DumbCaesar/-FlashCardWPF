@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using FlashCardWPF.Model;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace FlashCardWPF.ViewModel
 {
@@ -22,8 +23,35 @@ namespace FlashCardWPF.ViewModel
         private bool _sessionActive = true;
         private int _cardCount = 0;
         private bool _areAnswersVisible;
-
         private Card _currentCard;
+        private TimeSpan _studyTime;
+        private TimeSpan _studyTimePerCard;
+
+        public TimeSpan StudyTimePerCardDeck
+        {
+            get => _studyTimePerCard;
+            set
+            {
+                if(_studyTimePerCard != value)
+                {
+                    _studyTimePerCard = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public TimeSpan StudyTimeDeck
+        {
+            get => _studyTime;
+            set
+            {
+                if (_studyTime != value)
+                {
+                    _studyTime = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public bool AreAnswersVisible
         {
@@ -77,19 +105,16 @@ namespace FlashCardWPF.ViewModel
 
         private void GoToNextQuestion(object param)
         {
+            _cardCount++;
             AreAnswersVisible = false;
             CurrentCard = SetNextCard();
-
-            TimeSpan studyTime = StudyTime();
-            TimeSpan studyTimePerCard = StudyTimePerCard(studyTime);
-
-            if(studyTime != TimeSpan.Zero)
+            if (!HasCardsLeft())
             {
-                Debug.WriteLine($"Seassion complet! Total time is: {studyTime}");
-            }
-            if (studyTimePerCard != TimeSpan.Zero)
-            {
-                Debug.WriteLine($"Seassion complet! Total time per card is: {studyTimePerCard}");
+                TimeSpan studyTime = StudyTime();
+                TimeSpan studyTimePerCard = StudyTimePerCard(studyTime);
+                StudyTimeDeck = studyTime;
+                StudyTimePerCardDeck = studyTimePerCard;
+
             }
 
             Debug.WriteLine($"Caller is {param}");
@@ -127,24 +152,16 @@ namespace FlashCardWPF.ViewModel
             }
         }
 
-        public TimeSpan StudyTimePerCard(TimeSpan timeSpan)
+        public TimeSpan StudyTimePerCard(TimeSpan totalTime)
         {
-            if(HasCardsLeft())
+            if (_cardCount == 0)
             {
-                _cardCount++;
                 return TimeSpan.Zero;
             }
-            else
-            {
-                if(_cardCount == 0)
-                {
-                    return TimeSpan.Zero;
-                }
 
-                TimeSpan timePerCard = TimeSpan.FromSeconds(timeSpan.TotalSeconds / _cardCount);
-                return timePerCard;
-            }
-
+            TimeSpan timePerCard = TimeSpan.FromSeconds(totalTime.TotalSeconds / _cardCount);
+            Debug.WriteLine($"Study time per card: {timePerCard}");
+            return timePerCard;
         }
 
         private bool HasCardsLeft()
