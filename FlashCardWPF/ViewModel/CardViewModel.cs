@@ -11,6 +11,7 @@ namespace FlashCardWPF.ViewModel
 {
     public class CardViewModel : INotifyPropertyChanged
     {
+        private const int MAX_NEW_CARDS_PER_SESSION = 10;
         private DateTime _startTime;
         private int _cardCount = 0;
         private bool _areAnswersVisible;
@@ -133,43 +134,43 @@ namespace FlashCardWPF.ViewModel
             switch (rating)
             {
                 case "Again":
-                    CurrentCard.NextReview = DateTime.Now.AddMinutes(1);
+                    CurrentCard.NextReview = DateTime.Now.AddMinutes(SpacedRepetitionConstants.AGAIN_NEW_CARD_MINUTES);
                     LearningCards.Add(CurrentCard);
                     break;
                 case "Hard":
-                    CurrentCard.NextReview = DateTime.Now.AddMinutes(10);
+                    CurrentCard.NextReview = DateTime.Now.AddMinutes(SpacedRepetitionConstants.HARD_NEW_CARD_MINUTES);
                     LearningCards.Add(CurrentCard);
                     break;
                 case "Good":
-                    CurrentCard.NextReview = DateTime.Now.AddDays(1);
-                    CurrentCard.Interval = 1;
-                    CurrentCard.EaseFactor = 2.5;
+                    CurrentCard.NextReview = DateTime.Now.AddDays(SpacedRepetitionConstants.GOOD_NEW_CARD_DAYS);
+                    CurrentCard.Interval = SpacedRepetitionConstants.GOOD_INITIAL_INTERVAL;
+                    CurrentCard.EaseFactor = SpacedRepetitionConstants.DEFAULT_EASE_FACTOR;
                     break;
                 case "Easy":
-                    CurrentCard.NextReview = DateTime.Now.AddDays(4);
-                    CurrentCard.Interval = 4;
-                    CurrentCard.EaseFactor = 2.6;
+                    CurrentCard.NextReview = DateTime.Now.AddDays(SpacedRepetitionConstants.EASY_NEW_CARD_DAYS);
+                    CurrentCard.Interval = SpacedRepetitionConstants.EASY_INITIAL_INTERVAL;
+                    CurrentCard.EaseFactor = SpacedRepetitionConstants.EASY_INITIAL_EASE_FACTOR;
                     break;
             }
         }
 
         private void UpdateReviewCardScheduling(string rating)
         {      
-            double easeFactor = CurrentCard.EaseFactor ?? 2.5;
-            int interval = CurrentCard.Interval ?? 1;
+            double easeFactor = CurrentCard.EaseFactor ?? SpacedRepetitionConstants.DEFAULT_EASE_FACTOR;
+            int interval = CurrentCard.Interval ?? SpacedRepetitionConstants.GOOD_INITIAL_INTERVAL;
             switch (rating)
             {
                 case "Again":
-                    CurrentCard.NextReview = DateTime.Now.AddMinutes(10);
+                    CurrentCard.NextReview = DateTime.Now.AddMinutes(SpacedRepetitionConstants.AGAIN_REVIEW_MINUTES);
                     CurrentCard.Interval = 0;
-                    CurrentCard.EaseFactor = Math.Max(1.3, easeFactor - 0.2);
+                    CurrentCard.EaseFactor = Math.Max(SpacedRepetitionConstants.MIN_EASE_FACTOR, easeFactor - SpacedRepetitionConstants.AGAIN_EASE_PENALTY);
                     LearningCards.Add(CurrentCard);
                     break;
                 case "Hard":
-                    interval = (int)(interval * 1.2);
+                    interval = (int)(interval * SpacedRepetitionConstants.HARD_INTERVAL_MULTIPLIER);
                     CurrentCard.NextReview = DateTime.Now.AddDays(interval);
                     CurrentCard.Interval = interval;
-                    CurrentCard.EaseFactor = Math.Max(1.3, easeFactor - 0.15);
+                    CurrentCard.EaseFactor = Math.Max(SpacedRepetitionConstants.MIN_EASE_FACTOR, easeFactor - SpacedRepetitionConstants.HARD_EASE_PENALTY);
                     LearningCards.Add(CurrentCard);
                     break;
                 case "Good":
@@ -181,7 +182,7 @@ namespace FlashCardWPF.ViewModel
                     interval = (int)(interval * easeFactor);
                     CurrentCard.NextReview = DateTime.Now.AddDays(interval);
                     CurrentCard.Interval = interval;
-                    CurrentCard.EaseFactor = easeFactor + 0.15;
+                    CurrentCard.EaseFactor = easeFactor + SpacedRepetitionConstants.EASY_EASE_BONUS;
                     break;
             }
         }
@@ -225,35 +226,18 @@ namespace FlashCardWPF.ViewModel
 
         public Queue<Card> CreateReviewDeck(Deck deck)
         {
-            Queue<Card> newDeck = new Queue<Card>();
-            int i = 0;
-            while (i < deck.Cards.Count)
-            {
-                Card card = deck.Cards[i];
-                if (!card.IsNew && DateTime.Now >= card.NextReview) newDeck.Enqueue(card);
-                i++;
-            }
-            Debug.WriteLine($"{newDeck.Count} cards in Review Deck");
-            return newDeck;
+            var newCards = deck.Cards.Where(c => !c.IsNew && DateTime.Now >= c.NextReview);
+            var reviewQueue = new Queue<Card>(newCards);
+            Debug.WriteLine($"{reviewQueue.Count()} cards in Review Deck");
+            return reviewQueue;
         }
 
         public Queue<Card> CreateNewCardDeck(Deck deck)
         {
-            Queue<Card> newDeck = new Queue<Card>();
-            int newCardCounter = 0;
-            int i = 0;
-            while (i < deck.Cards.Count)
-            {
-                Card card = deck.Cards[i];
-                if (card.IsNew && newCardCounter < 10)
-                {
-                    newDeck.Enqueue(card);
-                    newCardCounter++;
-                }
-                i++;
-            }
-            Debug.WriteLine($"{newDeck.Count} cards in New Deck");
-            return newDeck;
+            var newCards = deck.Cards.Where(c => c.IsNew).Take(MAX_NEW_CARDS_PER_SESSION);
+            var newQueue = new Queue<Card>(newCards);
+            Debug.WriteLine($"{newQueue.Count()} cards in New Deck");
+            return new Queue<Card>(newCards);
         }
 
         public Card SetNextCard()
