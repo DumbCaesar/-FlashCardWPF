@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using FlashCardWPF.Model;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows;
 using Microsoft.VisualBasic;
 
 namespace FlashCardWPF.ViewModel
@@ -23,8 +24,38 @@ namespace FlashCardWPF.ViewModel
         private bool _sessionActive = true;
         private int _cardCount = 0;
         private bool _areAnswersVisible;
-
         private Card _currentCard;
+        private TimeSpan _studyTime;
+        private TimeSpan _studyTimePerCard;
+
+        public string StudySummary =>
+        $"Total: {StudyTimeDeck:mm\\:ss} | Per card: {StudyTimePerCardDeck:ss\\.ff}s";
+
+        public TimeSpan StudyTimePerCardDeck
+        {
+            get => _studyTimePerCard;
+            set
+            {
+                if(_studyTimePerCard != value)
+                {
+                    _studyTimePerCard = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public TimeSpan StudyTimeDeck
+        {
+            get => _studyTime;
+            set
+            {
+                if (_studyTime != value)
+                {
+                    _studyTime = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public bool AreAnswersVisible
         {
@@ -79,6 +110,14 @@ namespace FlashCardWPF.ViewModel
         private void GoToNextQuestion(object param)
         {
             AreAnswersVisible = false;
+            _cardCount++;
+
+            TimeSpan totalElapsed = StudyTime();
+            TimeSpan totalTimePerCard = StudyTimePerCard(totalElapsed);
+            StudyTimeDeck = totalElapsed;
+            StudyTimePerCardDeck = totalTimePerCard;
+
+            if (!HasCardsLeft() || CurrentCard == null)
 
             Debug.WriteLine($"Caller is {param}");
             Button button = (Button)param;
@@ -144,16 +183,6 @@ namespace FlashCardWPF.ViewModel
             }
 
                 CurrentCard = SetNextCard();
-            TimeSpan studyTime = StudyTime();
-            TimeSpan studyTimePerCard = StudyTimePerCard(studyTime);
-
-            if (studyTime != TimeSpan.Zero)
-            {
-                Debug.WriteLine($"Seassion complet! Total time is: {studyTime}");
-            }
-            if (studyTimePerCard != TimeSpan.Zero)
-            {
-                Debug.WriteLine($"Seassion complet! Total time per card is: {studyTimePerCard}");
             }
         }
 
@@ -174,24 +203,16 @@ namespace FlashCardWPF.ViewModel
             }
         }
 
-        public TimeSpan StudyTimePerCard(TimeSpan timeSpan)
+        public TimeSpan StudyTimePerCard(TimeSpan totalTime)
         {
-            if(HasCardsLeft())
+            if (_cardCount == 0)
             {
-                _cardCount++;
                 return TimeSpan.Zero;
             }
-            else
-            {
-                if(_cardCount == 0)
-                {
-                    return TimeSpan.Zero;
-                }
 
-                TimeSpan timePerCard = TimeSpan.FromSeconds(timeSpan.TotalSeconds / _cardCount);
-                return timePerCard;
-            }
-
+            TimeSpan timePerCard = TimeSpan.FromSeconds(totalTime.TotalSeconds / _cardCount);
+            Debug.WriteLine($"Study time per card: {timePerCard}");
+            return timePerCard;
         }
 
         private bool HasCardsLeft()
@@ -293,8 +314,21 @@ namespace FlashCardWPF.ViewModel
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+            // If either timing property changes, notify the UI that StudySummary also changed
+            if (propertyName is nameof(StudyTimeDeck) or nameof(StudyTimePerCardDeck))
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(StudySummary)));
+            }
+        }
+
+        //public event PropertyChangedEventHandler? PropertyChanged;
+        //protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        //    => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
 

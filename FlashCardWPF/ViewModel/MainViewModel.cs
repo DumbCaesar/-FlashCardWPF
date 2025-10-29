@@ -14,10 +14,12 @@ namespace FlashCardWPF.ViewModel
 {
     public class MainViewModel
     {
+        public CardViewModel CardViewModel { get; }
         public ObservableCollection<string> Decks { get ; set; } 
         public string? SelectedDeck { get; set; }
         public ICommand DeckDoubleClickCommand { get; }
 
+        
 
         public MainViewModel()
         {
@@ -32,6 +34,8 @@ namespace FlashCardWPF.ViewModel
 
             DeckDoubleClickCommand = new RelayCommand(
                 _ => OnDeckDoubleClick());
+
+            CardViewModel = new CardViewModel("test");
         }
 
         private void OnDeckDoubleClick()
@@ -40,5 +44,6 @@ namespace FlashCardWPF.ViewModel
             var cardView = new CardView { DataContext = cardViewModel };
             cardView.Show();
         }
+
     }
 }

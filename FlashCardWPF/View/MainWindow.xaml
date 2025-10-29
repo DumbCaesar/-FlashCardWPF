@@ -32,7 +32,7 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
-        <Label Content="Studied 0 cards in 0 seconds today (0s/card)" HorizontalAlignment="Center" Margin="0 5 0 5"/>
+        <Label Content="{Binding CardViewModel.StudySummary}" HorizontalAlignment="Center" Margin="0 5 0 5"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="8">
         <Grid HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
