@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlashCardWPF.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,13 @@ namespace FlashCardWPF.View
     /// </summary>
     public partial class NewDeckView : Window
     {
+        private NewDeckViewModel newDeckViewModel;
         public NewDeckView()
         {
             InitializeComponent();
+            newDeckViewModel = new NewDeckViewModel();
+            DataContext = newDeckViewModel;
+
         }
     }
 }
