@@ -42,7 +42,7 @@ namespace FlashCardWPF.ViewModel
         public ICommand NextQuestionCommand { get; }
 
         public Deck CurrentDeck { get; }
-        public Queue<Card> LearningCards { get; set; } = new Queue<Card>();
+        public List<Card> LearningCards { get; set; } = new List<Card>();
         public Queue<Card> ReviewCards { get; set; }
         public Queue<Card> NewCards { get; set; }
         public Card CurrentCard
@@ -133,10 +133,23 @@ namespace FlashCardWPF.ViewModel
         public Card SetNextCard()
         {
             Card card = null;
-            if (LearningCards.Count != 0) card = LearningCards.Dequeue();
-            else if (ReviewCards.Count != 0) card = ReviewCards.Dequeue();
-            else if (NewCards.Count != 0) card = NewCards.Dequeue();
-            Debug.WriteLine($"Queue returns card {card}");
+            if (LearningCards.Count != 0)
+            {
+                // Check for due card
+                foreach (Card c in LearningCards)
+                {
+                    if (DateTime.Now > c.NextReview)
+                    {
+                        card = c;
+                        break;
+                    }
+                }
+            }
+            else if (ReviewCards.Count != 0) card = ReviewCards.Dequeue(); // get next review card
+            else if (NewCards.Count != 0) card = NewCards.Dequeue(); // get next new card
+            else if (LearningCards.Count != 0) card = LearningCards[0]; // if no due cards in learning, no review, no next then get next from learning
+            else card = null; // no cards left
+                Debug.WriteLine($"Queue returns card {card}");
             return card;
         }
 
