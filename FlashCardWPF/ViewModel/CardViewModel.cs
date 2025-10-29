@@ -110,68 +110,81 @@ namespace FlashCardWPF.ViewModel
             Debug.WriteLine($"Caller is {param}");
             Button button = (Button)param;
             string caller = button.Content.ToString()!;
+            UpdateCardScheduling(caller);
+            CurrentCard = SetNextCard();
+        }
 
-            // Basic Anki SM-2 algorithm
+        private void UpdateCardScheduling(string rating)
+        {
             if (CurrentCard.IsNew)
             {
-                switch (caller)
-                {
-                    case "Again":
-                        CurrentCard.NextReview = DateTime.Now.AddMinutes(1);
-                        LearningCards.Add(CurrentCard);
-                        break;
-                    case "Hard":
-                        CurrentCard.NextReview = DateTime.Now.AddMinutes(10);
-                        LearningCards.Add(CurrentCard);
-                        break;
-                    case "Good":
-                        CurrentCard.NextReview = DateTime.Now.AddDays(1);
-                        CurrentCard.Interval = 1;
-                        CurrentCard.EaseFactor = 2.5;
-                        break;
-                    case "Easy":
-                        CurrentCard.NextReview = DateTime.Now.AddDays(4);
-                        CurrentCard.Interval = 4;
-                        CurrentCard.EaseFactor = 2.6;
-                        break;
-                }
-                CurrentCard.IsNew = false; // update new cards to seen after user has reviewed once
+                UpdateNewCardScheduling(rating);
+                CurrentCard.IsNew = false;  // update new cards to seen after user has reviewed once
             }
             else
             {
-                double easeFactor = CurrentCard.EaseFactor ?? 2.5;
-                int interval = CurrentCard.Interval ?? 1;
-                switch (caller)
-                {
-                    case "Again":
-                        CurrentCard.NextReview = DateTime.Now.AddMinutes(10);
-                        CurrentCard.Interval = 0;
-                        CurrentCard.EaseFactor = Math.Max(1.3, easeFactor - 0.2);
-                        LearningCards.Add(CurrentCard);
-                        break;
-                    case "Hard":
-                        interval = (int)(interval * 1.2);
-                        CurrentCard.NextReview = DateTime.Now.AddDays(interval);
-                        CurrentCard.Interval = interval;
-                        CurrentCard.EaseFactor = Math.Max(1.3, easeFactor - 0.15);
-                        LearningCards.Add(CurrentCard);
-                        break;
-                    case "Good":
-                        interval = (int)(interval * easeFactor);
-                        CurrentCard.NextReview = DateTime.Now.AddDays(interval);
-                        CurrentCard.Interval = interval;
-                        break;
-                    case "Easy":
-                        interval = (int)(interval * easeFactor);
-                        CurrentCard.NextReview = DateTime.Now.AddDays(interval);
-                        CurrentCard.Interval = interval;
-                        CurrentCard.EaseFactor = easeFactor + 0.15;
-                        break;
-                }
+                UpdateReviewCardScheduling(rating);
             }
+        }
 
-                CurrentCard = SetNextCard();
+        private void UpdateNewCardScheduling(string rating)
+        { 
+            // Basic Anki SM-2 algorithm
+            switch (rating)
+            {
+                case "Again":
+                    CurrentCard.NextReview = DateTime.Now.AddMinutes(1);
+                    LearningCards.Add(CurrentCard);
+                    break;
+                case "Hard":
+                    CurrentCard.NextReview = DateTime.Now.AddMinutes(10);
+                    LearningCards.Add(CurrentCard);
+                    break;
+                case "Good":
+                    CurrentCard.NextReview = DateTime.Now.AddDays(1);
+                    CurrentCard.Interval = 1;
+                    CurrentCard.EaseFactor = 2.5;
+                    break;
+                case "Easy":
+                    CurrentCard.NextReview = DateTime.Now.AddDays(4);
+                    CurrentCard.Interval = 4;
+                    CurrentCard.EaseFactor = 2.6;
+                    break;
             }
+        }
+
+        private void UpdateReviewCardScheduling(string rating)
+        {      
+            double easeFactor = CurrentCard.EaseFactor ?? 2.5;
+            int interval = CurrentCard.Interval ?? 1;
+            switch (rating)
+            {
+                case "Again":
+                    CurrentCard.NextReview = DateTime.Now.AddMinutes(10);
+                    CurrentCard.Interval = 0;
+                    CurrentCard.EaseFactor = Math.Max(1.3, easeFactor - 0.2);
+                    LearningCards.Add(CurrentCard);
+                    break;
+                case "Hard":
+                    interval = (int)(interval * 1.2);
+                    CurrentCard.NextReview = DateTime.Now.AddDays(interval);
+                    CurrentCard.Interval = interval;
+                    CurrentCard.EaseFactor = Math.Max(1.3, easeFactor - 0.15);
+                    LearningCards.Add(CurrentCard);
+                    break;
+                case "Good":
+                    interval = (int)(interval * easeFactor);
+                    CurrentCard.NextReview = DateTime.Now.AddDays(interval);
+                    CurrentCard.Interval = interval;
+                    break;
+                case "Easy":
+                    interval = (int)(interval * easeFactor);
+                    CurrentCard.NextReview = DateTime.Now.AddDays(interval);
+                    CurrentCard.Interval = interval;
+                    CurrentCard.EaseFactor = easeFactor + 0.15;
+                    break;
+            }
+        }
         
 
         public TimeSpan StudyTime()
