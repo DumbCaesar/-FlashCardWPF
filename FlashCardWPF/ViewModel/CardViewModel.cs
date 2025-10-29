@@ -14,6 +14,7 @@ using FlashCardWPF.Model;
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows;
+using Microsoft.VisualBasic;
 
 namespace FlashCardWPF.ViewModel
 {
@@ -117,29 +118,71 @@ namespace FlashCardWPF.ViewModel
             StudyTimePerCardDeck = totalTimePerCard;
 
             if (!HasCardsLeft() || CurrentCard == null)
-            {
-                _sessionActive = false;
-                Debug.WriteLine("Session finished.");
-
-            }
-
-            CurrentCard = SetNextCard();
 
             Debug.WriteLine($"Caller is {param}");
             Button button = (Button)param;
             string caller = button.Content.ToString()!;
 
-            switch (caller)
+            // Basic Anki SM-2 algorithm
+            if (CurrentCard.IsNew)
             {
-                case "Again":
-                    break;
-                case "Hard":
-                    break;
-                case "Good":
-                    CurrentCard.NextReview = DateTime.Now.AddMinutes(2);
-                    break;
-                case "Easy":
-                    break;
+                switch (caller)
+                {
+                    case "Again":
+                        CurrentCard.NextReview = DateTime.Now.AddMinutes(1);
+                        LearningCards.Add(CurrentCard);
+                        break;
+                    case "Hard":
+                        CurrentCard.NextReview = DateTime.Now.AddMinutes(10);
+                        LearningCards.Add(CurrentCard);
+                        break;
+                    case "Good":
+                        CurrentCard.NextReview = DateTime.Now.AddDays(1);
+                        CurrentCard.Interval = 1;
+                        CurrentCard.EaseFactor = 2.5;
+                        break;
+                    case "Easy":
+                        CurrentCard.NextReview = DateTime.Now.AddDays(4);
+                        CurrentCard.Interval = 4;
+                        CurrentCard.EaseFactor = 2.6;
+                        break;
+                }
+                CurrentCard.IsNew = false; // update new cards to seen after user has reviewed once
+            }
+            else
+            {
+                double easeFactor = CurrentCard.EaseFactor ?? 2.5;
+                int interval = CurrentCard.Interval ?? 1;
+                switch (caller)
+                {
+                    case "Again":
+                        CurrentCard.NextReview = DateTime.Now.AddMinutes(10);
+                        CurrentCard.Interval = 0;
+                        CurrentCard.EaseFactor = Math.Max(1.3, easeFactor - 0.2);
+                        LearningCards.Add(CurrentCard);
+                        break;
+                    case "Hard":
+                        interval = (int)(interval * 1.2);
+                        CurrentCard.NextReview = DateTime.Now.AddDays(interval);
+                        CurrentCard.Interval = interval;
+                        CurrentCard.EaseFactor = Math.Max(1.3, easeFactor - 0.15);
+                        LearningCards.Add(CurrentCard);
+                        break;
+                    case "Good":
+                        interval = (int)(interval * easeFactor);
+                        CurrentCard.NextReview = DateTime.Now.AddDays(interval);
+                        CurrentCard.Interval = interval;
+                        break;
+                    case "Easy":
+                        interval = (int)(interval * easeFactor);
+                        CurrentCard.NextReview = DateTime.Now.AddDays(interval);
+                        CurrentCard.Interval = interval;
+                        CurrentCard.EaseFactor = easeFactor + 0.15;
+                        break;
+                }
+            }
+
+                CurrentCard = SetNextCard();
             }
         }
 
@@ -219,21 +262,40 @@ namespace FlashCardWPF.ViewModel
             if (LearningCards.Count != 0)
             {
                 // Check for due card
-                foreach (Card c in LearningCards)
+                for (int i = 0; i < LearningCards.Count; i++)
                 {
-                    if (DateTime.Now > c.NextReview)
+                    if (DateTime.Now > LearningCards[i].NextReview)
                     {
-                        card = c;
-                        break;
+                        card = LearningCards[i];
+                        LearningCards.RemoveAt(i);
+                        return card;
                     }
                 }
             }
-            else if (ReviewCards.Count != 0) card = ReviewCards.Dequeue(); // get next review card
-            else if (NewCards.Count != 0) card = NewCards.Dequeue(); // get next new card
-            else if (LearningCards.Count != 0) card = LearningCards[0]; // if no due cards in learning, no review, no next then get next from learning
-            else card = null; // no cards left
-                Debug.WriteLine($"Queue returns card {card}");
-            return card;
+            
+            if (ReviewCards.Count != 0)
+            {
+                card = ReviewCards.Dequeue(); // get next review card
+                return card;
+            }
+            
+            if (NewCards.Count != 0)
+            {
+                card = NewCards.Dequeue(); // get next new card
+                return card;
+            } 
+            
+            if (LearningCards.Count != 0)  // if no due cards in learning, no review, no next then get next from learning
+            {
+                card = LearningCards[0];
+                for (int i = 0; i < LearningCards.Count; i++) // get lowest review date
+                {
+                    if (LearningCards[i].NextReview < card.NextReview) card = LearningCards[i];
+                }
+                LearningCards.Remove(card);
+                return card;
+            }
+            return null;
         }
 
         public Deck LoadDeck(string deckName)
