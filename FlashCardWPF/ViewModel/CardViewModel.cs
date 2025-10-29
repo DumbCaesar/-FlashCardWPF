@@ -27,6 +27,9 @@ namespace FlashCardWPF.ViewModel
         private TimeSpan _studyTime;
         private TimeSpan _studyTimePerCard;
 
+        public string StudySummary =>
+        $"Total: {StudyTimeDeck:mm\\:ss} | Per card: {StudyTimePerCardDeck:ss\\.ff}s";
+
         public TimeSpan StudyTimePerCardDeck
         {
             get => _studyTimePerCard;
@@ -105,17 +108,22 @@ namespace FlashCardWPF.ViewModel
 
         private void GoToNextQuestion(object param)
         {
-            _cardCount++;
             AreAnswersVisible = false;
-            CurrentCard = SetNextCard();
-            if (!HasCardsLeft())
+            _cardCount++;
+
+            TimeSpan totalElapsed = StudyTime();
+            TimeSpan totalTimePerCard = StudyTimePerCard(totalElapsed);
+            StudyTimeDeck = totalElapsed;
+            StudyTimePerCardDeck = totalTimePerCard;
+
+            if (!HasCardsLeft() || CurrentCard == null)
             {
-                TimeSpan studyTime = StudyTime();
-                TimeSpan studyTimePerCard = StudyTimePerCard(studyTime);
-                StudyTimeDeck = studyTime;
-                StudyTimePerCardDeck = studyTimePerCard;
+                _sessionActive = false;
+                Debug.WriteLine("Session finished.");
 
             }
+
+            CurrentCard = SetNextCard();
 
             Debug.WriteLine($"Caller is {param}");
             Button button = (Button)param;
@@ -244,8 +252,21 @@ namespace FlashCardWPF.ViewModel
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+            // If either timing property changes, notify the UI that StudySummary also changed
+            if (propertyName is nameof(StudyTimeDeck) or nameof(StudyTimePerCardDeck))
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(StudySummary)));
+            }
+        }
+
+        //public event PropertyChangedEventHandler? PropertyChanged;
+        //protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        //    => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
 
