@@ -113,6 +113,7 @@ namespace FlashCardWPF.ViewModel
             string caller = button.Content.ToString()!;
             UpdateCardScheduling(caller);
             CurrentCard = SetNextCard();
+            if (!HasCardsLeft()) SaveDeck();
         }
 
         private void UpdateCardScheduling(string rating)
@@ -242,28 +243,16 @@ namespace FlashCardWPF.ViewModel
 
         public Card SetNextCard()
         {
-            Card card = null;
             if (LearningCards.Count > 0 &&
                 LearningCards.TryPeek(out Card topCard, out DateTime priority) &&
-                DateTime.Now >= priority) // Check for due card
+                DateTime.Now >= priority) // Check for due card in learning deck
             {
                 return LearningCards.Dequeue();
             }
             
-            if (ReviewCards.Count != 0)
-            {
-                return ReviewCards.Dequeue(); // get next review card
-            }
-            
-            if (NewCards.Count != 0)
-            {
-                return NewCards.Dequeue(); // get next new card
-            } 
-            
-            if (LearningCards.Count != 0)  // if no due cards in learning, no review, no next then get next from learning
-            {
-                return LearningCards.Dequeue();
-            }
+            if (ReviewCards.Count != 0) return ReviewCards.Dequeue(); // get next review card
+            if (NewCards.Count != 0) return NewCards.Dequeue(); // get next new card
+            if (LearningCards.Count != 0) return LearningCards.Dequeue(); // if no due cards in learning, no review, no next then get next from learning
             return null;
         }
 
@@ -279,7 +268,28 @@ namespace FlashCardWPF.ViewModel
             };
 
             var deck = JsonSerializer.Deserialize<Deck>(json, options);
-            return deck;
+            if (deck != null)
+            {
+                deck.Name = deckName;
+            }
+            return deck ?? throw new InvalidOperationException("Failed to load deck");
+        }
+
+        public void SaveDeck()
+        {
+            string baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
+            string dataDir = Path.Combine(baseDir, "Data");
+            string filePath = Path.Combine(dataDir, $"{CurrentDeck.Name}.json");
+
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                WriteIndented = true
+            };
+
+            string json = JsonSerializer.Serialize(CurrentDeck, options);
+            File.WriteAllText(filePath, json);
+            Debug.WriteLine($"Deck saved to {filePath}");
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
