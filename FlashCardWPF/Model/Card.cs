@@ -10,6 +10,8 @@ namespace FlashCardWPF.Model
     {
         public string? Front {  get; set; }
         public string? Back { get; set; }
+        public int? Interval { get; set; }
+        public double? EaseFactor { get; set; }
 
         public DateTime NextReview { get; set; } = DateTime.Now;
         public bool IsNew { get; set; } = true;
