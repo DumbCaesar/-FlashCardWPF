@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using FlashCardWPF.Model;
 using System.Windows.Input;
 using System.Windows.Controls;
+using Microsoft.VisualBasic;
 
 namespace FlashCardWPF.ViewModel
 {
@@ -83,27 +84,66 @@ namespace FlashCardWPF.ViewModel
             Button button = (Button)param;
             string caller = button.Content.ToString()!;
 
-            switch (caller)
+            // Basic Anki SM-2 algorithm
+            if (CurrentCard.IsNew)
             {
-                case "Again":
-                    CurrentCard.NextReview = DateTime.Now.AddMinutes(1);
-                    LearningCards.Add(CurrentCard);
-                    break;
-                case "Hard":
-                    CurrentCard.NextReview = DateTime.Now.AddMinutes(2);
-                    LearningCards.Add(CurrentCard);
-                    break;
-                case "Good":
-                    CurrentCard.NextReview = DateTime.Now.AddDays(1);
-                    break;
-                case "Easy":
-                    CurrentCard.NextReview = DateTime.Now.AddDays(2);
-                    break;
+                switch (caller)
+                {
+                    case "Again":
+                        CurrentCard.NextReview = DateTime.Now.AddMinutes(1);
+                        LearningCards.Add(CurrentCard);
+                        break;
+                    case "Hard":
+                        CurrentCard.NextReview = DateTime.Now.AddMinutes(10);
+                        LearningCards.Add(CurrentCard);
+                        break;
+                    case "Good":
+                        CurrentCard.NextReview = DateTime.Now.AddDays(1);
+                        CurrentCard.Interval = 1;
+                        CurrentCard.EaseFactor = 2.5;
+                        break;
+                    case "Easy":
+                        CurrentCard.NextReview = DateTime.Now.AddDays(4);
+                        CurrentCard.Interval = 4;
+                        CurrentCard.EaseFactor = 2.6;
+                        break;
+                }
+                CurrentCard.IsNew = false; // update new cards to seen after user has reviewed once
+            }
+            else
+            {
+                double easeFactor = CurrentCard.EaseFactor ?? 2.5;
+                int interval = CurrentCard.Interval ?? 1;
+                switch (caller)
+                {
+                    case "Again":
+                        CurrentCard.NextReview = DateTime.Now.AddMinutes(10);
+                        CurrentCard.Interval = 0;
+                        CurrentCard.EaseFactor = Math.Max(1.3, easeFactor - 0.2);
+                        LearningCards.Add(CurrentCard);
+                        break;
+                    case "Hard":
+                        interval = (int)(interval * 1.2);
+                        CurrentCard.NextReview = DateTime.Now.AddDays(interval);
+                        CurrentCard.Interval = interval;
+                        CurrentCard.EaseFactor = Math.Max(1.3, easeFactor - 0.15);
+                        LearningCards.Add(CurrentCard);
+                        break;
+                    case "Good":
+                        interval = (int)(interval * easeFactor);
+                        CurrentCard.NextReview = DateTime.Now.AddDays(interval);
+                        CurrentCard.Interval = interval;
+                        break;
+                    case "Easy":
+                        interval = (int)(interval * easeFactor);
+                        CurrentCard.NextReview = DateTime.Now.AddDays(interval);
+                        CurrentCard.Interval = interval;
+                        CurrentCard.EaseFactor = easeFactor + 0.15;
+                        break;
+                }
             }
 
-            if (CurrentCard.IsNew) CurrentCard.IsNew = false; // update new cards to seen after user has reviewed once
-
-            CurrentCard = SetNextCard();
+                CurrentCard = SetNextCard();
             TimeSpan studyTime = StudyTime();
             TimeSpan studyTimePerCard = StudyTimePerCard(studyTime);
 
