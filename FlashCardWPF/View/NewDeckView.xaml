@@ -25,18 +25,16 @@
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
         <Label Content="Deck Name" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"/>
-        <TextBox x:Name="txtBoxDeckName" Grid.Row="2" Grid.Column="1" Margin="5"/>
+        <TextBox Text="{Binding DeckName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Margin="5"/>
         <Label Content="Q/A" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center"/>
-        <ListBox x:Name="QAndAListBox" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="5"/>
+        <ListBox ItemsSource="{Binding Deck}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="5"/>
         <Label Content="Question" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center"/>
         <Label Content="Answer" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center"/>
-        <TextBox x:Name="txtBoxQuestion" Grid.Row="2" Grid.Column="2" Margin="5"/>
-        <TextBox x:Name="txtBoxAnswer" Grid.Row="5" Grid.Column="2" Margin="5"/>
-        <Button x:Name="btnQuestionOK" Content="OK" Grid.Column="2" Grid.Row="3" Width="115" HorizontalAlignment="Left"/>
-        <Button x:Name="btnQuestionDel" Content="Delete" Grid.Column="2" Grid.Row="3" Width="115" HorizontalAlignment="Right"/>
-        <Button x:Name="btnAnswerOK" Content="OK" Grid.Column="2" Grid.Row="6" Width="115" HorizontalAlignment="Left"/>
-        <Button x:Name="btnAnswerDel" Content="Delete" Grid.Column="2" Grid.Row="6" Width="115" HorizontalAlignment="Right"/>
+        <TextBox Text="{Binding CurrentQuestion, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="2" Margin="5"/>
+        <TextBox Text="{Binding CurrentAnswer, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Grid.Column="2" Margin="5"/>
+        <Button Command="{Binding AddQuestionCommand}" Content="OK" Grid.Column="2" Grid.Row="3"/>
+        <Button Command="{Binding DeleteQuestionCommand}" Content="Delete" Grid.Column="2" Grid.Row="6"/>
         <Label Content="Create Deck (with questions and answers)" Grid.Column="1" Grid.Row="4"/>
-        <Button x:Name="btnCreateDeck" Content="Create Deck" Grid.Row="5" Grid.Column="1" Margin="10"/>
+        <Button Command="{Binding CreateDeckCommand}" Content="Create Deck" Grid.Row="5" Grid.Column="1" Margin="10"/>
     </Grid>
 </Window>
