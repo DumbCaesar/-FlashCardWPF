@@ -17,6 +17,7 @@ namespace FlashCardWPF.ViewModel
         private string _deckName;
         private string _currentQuestion;
         private string _currentAnswer;
+        private List<Card> NewDeck { get; set; } = new List<Card>();
 
         public string DeckName 
         {
@@ -70,16 +71,29 @@ namespace FlashCardWPF.ViewModel
             DeleteQuestionCommand = new RelayCommand(_ => DeleteQuestion());
         }
 
-        private List<Card> CreateDeck()
+        private void CreateDeck()
         {
             List<Card> deck = new List<Card>();
-            return deck;
-            
+            if(DeckName != null)
+            {
+                foreach (var card in Deck)
+                {
+                    NewDeck.Add(card);
+                    Debug.WriteLine("Deck creation successfull!");
+                }
+            }
         }
 
         private void AddQuestion()
         {
-            Debug.WriteLine("Adding question...");
+            if(CurrentQuestion != null && CurrentAnswer != null)
+            {
+                Card card = new Card(CurrentQuestion, CurrentAnswer);
+                Deck.Add(card);
+                Debug.WriteLine("Card creation succesfull!");
+                Debug.WriteLine($"Front: {CurrentQuestion} Back: {CurrentAnswer}");
+
+            }
         }
 
         private void DeleteQuestion()
