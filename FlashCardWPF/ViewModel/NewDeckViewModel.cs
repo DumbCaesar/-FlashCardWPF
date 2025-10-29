@@ -1,14 +1,16 @@
-﻿using FlashCardWPF.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using FlashCardWPF.Model;
 
 namespace FlashCardWPF.ViewModel
 {
@@ -17,7 +19,7 @@ namespace FlashCardWPF.ViewModel
         private string _deckName;
         private string _currentQuestion;
         private string _currentAnswer;
-        private List<Card> NewDeck { get; set; } = new List<Card>();
+        private Deck NewDeck { get; set; } = new Deck();
 
         public string DeckName 
         {
@@ -78,10 +80,13 @@ namespace FlashCardWPF.ViewModel
             {
                 foreach (var card in Deck)
                 {
-                    NewDeck.Add(card);
+                    deck.Add(card);
                     Debug.WriteLine("Deck creation successfull!");
                 }
             }
+            NewDeck.Name = DeckName;
+            NewDeck.Cards = deck;
+            SaveNewDeckToFile();
         }
 
         private void AddQuestion()
@@ -101,9 +106,21 @@ namespace FlashCardWPF.ViewModel
             Debug.WriteLine("deleting question...");
         }
 
-        private void SaveDeckToFile()
+        private void SaveNewDeckToFile()
         {
+            string baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
+            string dataDir = Path.Combine(baseDir, "Data");
+            string filePath = Path.Combine(dataDir, $"{DeckName}.json");
 
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                WriteIndented = true
+            };
+
+            string json = JsonSerializer.Serialize(NewDeck, options);
+            File.WriteAllText(filePath, json);
+            Debug.WriteLine($"Deck saved to {filePath}");
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

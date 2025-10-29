@@ -21,8 +21,8 @@
       "Front": "Please",
       "Back": "Por favor",
       "Interval": 0,
-      "EaseFactor": 2.3,
-      "NextReview": "2025-10-29T13:19:33.3148486+01:00",
+      "EaseFactor": 2.2499999999999996,
+      "NextReview": "2025-10-29T13:45:56.2237515+01:00",
       "IsNew": false
     },
     {
@@ -70,15 +70,15 @@
       "Back": "Amigo/Amiga",
       "Interval": 0,
       "EaseFactor": 2.15,
-      "NextReview": "2025-10-29T13:19:40.2718359+01:00",
+      "NextReview": "2025-10-29T13:45:50.8379742+01:00",
       "IsNew": false
     },
     {
       "Front": "House",
       "Back": "Casa",
       "Interval": 0,
-      "EaseFactor": 2.4499999999999997,
-      "NextReview": "2025-10-29T13:19:36.7861668+01:00",
+      "EaseFactor": 2.5999999999999996,
+      "NextReview": "2025-10-29T13:45:53.4168742+01:00",
       "IsNew": false
     }
   ]
