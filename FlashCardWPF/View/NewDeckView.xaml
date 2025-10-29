@@ -1,0 +1,40 @@
+﻿<Window x:Class="FlashCardWPF.View.NewDeckView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlashCardWPF.View"
+        mc:Ignorable="d"
+        Title="NewDeckView" Height="400" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Deck Name" Grid.Row="1" Grid.Column="1"/>
+        <TextBox x:Name="txtBoxDeckName" Grid.Row="2" Grid.Column="1" Margin="5"/>
+        <Label Content="Q/A" Grid.Column="1" Grid.Row="6"/>
+        <ListBox x:Name="QAndAListBox" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="5"/>
+        <Label Content="Question" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center"/>
+        <Label Content="Answer" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center"/>
+        <TextBox x:Name="txtBoxQuestion" Grid.Row="2" Grid.Column="2" Margin="5"/>
+        <TextBox x:Name="txtBoxAnswer" Grid.Row="5" Grid.Column="2" Margin="5"/>
+        <Button x:Name="btnQuestionOK" Content="OK" Grid.Column="2" Grid.Row="3" Width="115" HorizontalAlignment="Left"/>
+        <Button x:Name="btnQuestionDel" Content="Delete" Grid.Column="2" Grid.Row="3" Width="115" HorizontalAlignment="Right"/>
+        <Button x:Name="btnAnswerOK" Content="OK" Grid.Column="2" Grid.Row="6" Width="115" HorizontalAlignment="Left"/>
+        <Button x:Name="btnAnswerDel" Content="Delete" Grid.Column="2" Grid.Row="6" Width="115" HorizontalAlignment="Right"/>
+    </Grid>
+</Window>
