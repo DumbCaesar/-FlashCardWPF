@@ -28,6 +28,8 @@ namespace FlashCardWPF.ViewModel
         public string? SelectedDeck { get; set; }
         public ICommand DeckDoubleClickCommand { get; }
 
+        public ICommand CreateNewDeckCommand { get; }
+
         
 
         public MainViewModel()
@@ -43,6 +45,14 @@ namespace FlashCardWPF.ViewModel
 
             DeckDoubleClickCommand = new RelayCommand(
                 _ => OnDeckDoubleClick());
+
+            CreateNewDeckCommand = new RelayCommand(_ => OnCreateDeck());
+        }
+
+        private void OnCreateDeck()
+        {
+            var newDeck = new NewDeckView();
+            newDeck.Show();
         }
 
         private void OnDeckDoubleClick()
