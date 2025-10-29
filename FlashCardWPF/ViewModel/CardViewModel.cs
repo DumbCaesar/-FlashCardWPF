@@ -1,27 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using FlashCardWPF.Model;
 using System.Windows.Input;
 using System.Windows.Controls;
-using System.Windows;
-using Microsoft.VisualBasic;
 
 namespace FlashCardWPF.ViewModel
 {
     public class CardViewModel : INotifyPropertyChanged
     {
         private DateTime _startTime;
-        private bool _sessionActive = true;
         private int _cardCount = 0;
         private bool _areAnswersVisible;
         private Card _currentCard;
@@ -117,8 +107,6 @@ namespace FlashCardWPF.ViewModel
             StudyTimeDeck = totalElapsed;
             StudyTimePerCardDeck = totalTimePerCard;
 
-            if (!HasCardsLeft() || CurrentCard == null)
-
             Debug.WriteLine($"Caller is {param}");
             Button button = (Button)param;
             string caller = button.Content.ToString()!;
@@ -184,7 +172,7 @@ namespace FlashCardWPF.ViewModel
 
                 CurrentCard = SetNextCard();
             }
-        }
+        
 
         public TimeSpan StudyTime()
         {
@@ -194,7 +182,6 @@ namespace FlashCardWPF.ViewModel
             }
             else
             {
-                _sessionActive = false;
                 DateTime endTime = DateTime.Now;
                 TimeSpan totalTime = endTime - _startTime;
 

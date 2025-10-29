@@ -1,20 +1,36 @@
-﻿using System;
+﻿using FlashCardWPF.Model;
+using FlashCardWPF.View;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using FlashCardWPF.Model;
-using FlashCardWPF.View;
 
-namespace FlashCardWPF.ViewModel
+namespace FlashCardWPF.ViewModel 
 {
-    public class MainViewModel
+    public class MainViewModel : INotifyPropertyChanged
     {
-        public CardViewModel CardViewModel { get; }
+        private CardViewModel _cardViewModel;
+
+        public CardViewModel CardViewModel
+        {
+            get => _cardViewModel;
+            set
+            {
+                if (_cardViewModel != value)
+                {
+                    _cardViewModel = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public ObservableCollection<string> Decks { get ; set; } 
         public string? SelectedDeck { get; set; }
         public ICommand DeckDoubleClickCommand { get; }
@@ -34,16 +50,18 @@ namespace FlashCardWPF.ViewModel
 
             DeckDoubleClickCommand = new RelayCommand(
                 _ => OnDeckDoubleClick());
-
-            CardViewModel = new CardViewModel("test");
         }
 
         private void OnDeckDoubleClick()
         {
-            var cardViewModel = new CardViewModel(SelectedDeck);
-            var cardView = new CardView { DataContext = cardViewModel };
+            CardViewModel = new CardViewModel(SelectedDeck);
+            var cardView = new CardView { DataContext = CardViewModel };
             cardView.Show();
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     }
 }
