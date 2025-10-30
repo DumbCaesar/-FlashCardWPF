@@ -45,11 +45,23 @@
             </Border>
         </StackPanel>
         <StackPanel VerticalAlignment="Center">
-            <Label Content="{Binding CurrentCard.Front}" HorizontalAlignment="Center" Margin="0 10 0 5"/>
+            <Label Margin="0 10 0 5" HorizontalAlignment="Center">
+                <TextBlock Text="{Binding CurrentCard.Front}"
+                   TextWrapping="Wrap"
+                   TextAlignment="Center"
+                   Width="300" />
+            </Label>
             <Line HorizontalAlignment="Center" X1="0" Y1="0" X2="200" Y2="0" 
 Stroke="Black" 
 StrokeThickness="1" />
-            <Label Content="{Binding CurrentCard.Back}" HorizontalAlignment="Center" Margin="0 5 0 40" Style="{StaticResource AnswerLabelStyle}"/>
+            <Label Margin="0 5 0 40"
+           HorizontalAlignment="Center"
+           Style="{StaticResource AnswerLabelStyle}">
+                <TextBlock Text="{Binding CurrentCard.Back}"
+                   TextWrapping="Wrap"
+                   TextAlignment="Center"
+                   Width="300" />
+            </Label>
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
