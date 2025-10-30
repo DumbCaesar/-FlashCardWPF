@@ -1,77 +1,101 @@
 {
-  "name": "Programming Basics",
-  "cards": [
+  "Name": "Programming",
+  "Cards": [
     {
-      "front": "What does OOP stand for?",
-      "back": "Object-Oriented Programming",
-      "nextReview": "2024-10-28T10:30:00",
-      "isNew": true
+      "Front": "What does OOP stand for?",
+      "Back": "Object-Oriented Programming",
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T08:30:08.4750698+01:00",
+      "IsNew": false
     },
     {
-      "front": "What is a variable?",
-      "back": "A named storage location in memory that holds a value",
-      "nextReview": "2024-10-28T14:00:00",
-      "isNew": true
+      "Front": "What is a variable?",
+      "Back": "A named storage location in memory that holds a value",
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T08:30:12.4901701+01:00",
+      "IsNew": false
     },
     {
-      "front": "What is a loop?",
-      "back": "A programming construct that repeats a block of code multiple times",
-      "nextReview": "2024-10-29T09:15:00",
-      "isNew": false
+      "Front": "What is a loop?",
+      "Back": "A programming construct that repeats a block of code multiple times",
+      "Interval": 2,
+      "EaseFactor": null,
+      "NextReview": "2025-11-01T08:29:45.8689076+01:00",
+      "IsNew": false
     },
     {
-      "front": "What is an array?",
-      "back": "A data structure that stores multiple values of the same type in a single variable",
-      "nextReview": "2024-10-28T16:45:00",
-      "isNew": true
+      "Front": "What is an array?",
+      "Back": "A data structure that stores multiple values of the same type in a single variable",
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T08:30:14.9208644+01:00",
+      "IsNew": false
     },
     {
-      "front": "What does IDE stand for?",
-      "back": "Integrated Development Environment",
-      "nextReview": "2024-10-30T11:20:00",
-      "isNew": false
+      "Front": "What does IDE stand for?",
+      "Back": "Integrated Development Environment",
+      "Interval": 2,
+      "EaseFactor": null,
+      "NextReview": "2025-11-01T08:29:53.0231942+01:00",
+      "IsNew": false
     },
     {
-      "front": "What is a function?",
-      "back": "A reusable block of code that performs a specific task",
-      "nextReview": "2024-10-28T13:15:00",
-      "isNew": true
+      "Front": "What is a function?",
+      "Back": "A reusable block of code that performs a specific task",
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T08:30:16.6779435+01:00",
+      "IsNew": false
     },
     {
-      "front": "What is debugging?",
-      "back": "The process of finding and fixing errors in code",
-      "nextReview": "2024-10-29T15:30:00",
-      "isNew": false
+      "Front": "What is debugging?",
+      "Back": "The process of finding and fixing errors in code",
+      "Interval": 2,
+      "EaseFactor": null,
+      "NextReview": "2025-11-01T08:29:55.3099073+01:00",
+      "IsNew": false
     },
     {
-      "front": "What is a string?",
-      "back": "A data type that represents text (a sequence of characters)",
-      "nextReview": "2024-10-28T17:00:00",
-      "isNew": true
+      "Front": "What is a string?",
+      "Back": "A data type that represents text (a sequence of characters)",
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T08:30:19.6995148+01:00",
+      "IsNew": false
     },
     {
-      "front": "What does API stand for?",
-      "back": "Application Programming Interface",
-      "nextReview": "2024-10-31T10:00:00",
-      "isNew": false
+      "Front": "What does API stand for?",
+      "Back": "Application Programming Interface",
+      "Interval": 0,
+      "EaseFactor": 2.3,
+      "NextReview": "2025-10-30T08:30:41.7493933+01:00",
+      "IsNew": false
     },
     {
-      "front": "What is inheritance in OOP?",
-      "back": "When a class derives properties and methods from another class",
-      "nextReview": "2024-10-28T12:00:00",
-      "isNew": true
+      "Front": "What is inheritance in OOP?",
+      "Back": "When a class derives properties and methods from another class",
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T08:30:27.8299593+01:00",
+      "IsNew": false
     },
     {
-      "front": "What is a boolean?",
-      "back": "A data type that can only be true or false",
-      "nextReview": "2024-10-29T08:30:00",
-      "isNew": false
+      "Front": "What is a boolean?",
+      "Back": "A data type that can only be true or false",
+      "Interval": 2,
+      "EaseFactor": null,
+      "NextReview": "2025-11-01T08:30:05.9730209+01:00",
+      "IsNew": false
     },
     {
-      "front": "What is version control?",
-      "back": "A system that tracks changes to code over time (like Git)",
-      "nextReview": "2024-10-28T15:20:00",
-      "isNew": true
+      "Front": "What is version control?",
+      "Back": "A system that tracks changes to code over time (like Git)",
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T08:30:33.3312903+01:00",
+      "IsNew": false
     }
   ]
 }
