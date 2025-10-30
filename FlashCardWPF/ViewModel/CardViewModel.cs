@@ -6,47 +6,25 @@ using System.Text.Json;
 using FlashCardWPF.Model;
 using System.Windows.Input;
 using System.Windows.Controls;
+using FlashCardWPF.Services;
 
 namespace FlashCardWPF.ViewModel
 {
     public class CardViewModel : INotifyPropertyChanged
     {
         private const int MAX_NEW_CARDS_PER_SESSION = 10;
-        private DateTime _startTime;
-        private int _cardCount = 0;
+        private readonly StatsService _statsService;
+        private DailyStats _dailyStats;
+        private DateTime _sessionStartTime;
+        private int _sessionCardCount = 0;
         private bool _areAnswersVisible;
         private Card _currentCard;
-        private TimeSpan _studyTime;
-        private TimeSpan _studyTimePerCard;
 
         public string StudySummary =>
-        $"Total: {StudyTimeDeck:mm\\:ss} | Per card: {StudyTimePerCardDeck:ss\\.ff}s";
+       $"Total: {_dailyStats.TotalStudyTime:mm\\:ss} | " +
+       $"Per card: {_dailyStats.AverageTimePerCard:ss\\.ff}s | " +
+       $"Cards: {_dailyStats.TotalCards}";
 
-        public TimeSpan StudyTimePerCardDeck
-        {
-            get => _studyTimePerCard;
-            set
-            {
-                if(_studyTimePerCard != value)
-                {
-                    _studyTimePerCard = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public TimeSpan StudyTimeDeck
-        {
-            get => _studyTime;
-            set
-            {
-                if (_studyTime != value)
-                {
-                    _studyTime = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
 
         public bool AreAnswersVisible
         {
@@ -84,13 +62,19 @@ namespace FlashCardWPF.ViewModel
 
         public CardViewModel(string deckName)
         {
+            _statsService = new StatsService();
+            _dailyStats = _statsService.LoadTodayStats();
+
             CurrentDeck = LoadDeck(deckName);
             ShowAnswersCommand = new RelayCommand(_ => ShowAnswers());
             NextQuestionCommand = new RelayCommand(param => GoToNextQuestion(param));
             ReviewCards = CreateReviewDeck(CurrentDeck);
             NewCards = CreateNewCardDeck(CurrentDeck);
             CurrentCard = SetNextCard();
-            _startTime = DateTime.Now;
+
+            _sessionStartTime = DateTime.Now;
+
+            OnPropertyChanged(nameof(StudySummary));
         }
 
         private void ShowAnswers()
@@ -101,19 +85,31 @@ namespace FlashCardWPF.ViewModel
         private void GoToNextQuestion(object param)
         {
             AreAnswersVisible = false;
-            _cardCount++;
-
-            TimeSpan totalElapsed = StudyTime();
-            TimeSpan totalTimePerCard = StudyTimePerCard(totalElapsed);
-            StudyTimeDeck = totalElapsed;
-            StudyTimePerCardDeck = totalTimePerCard;
+            _sessionCardCount++;
 
             Debug.WriteLine($"Caller is {param}");
             Button button = (Button)param;
             string caller = button.Content.ToString()!;
             UpdateCardScheduling(caller);
+
+            SaveDeck();
+            SaveSessionStats();
+
             CurrentCard = SetNextCard();
-            if (!HasCardsLeft()) SaveDeck();
+        }
+
+        private void SaveSessionStats()
+        {
+            TimeSpan sessionTime = DateTime.Now - _sessionStartTime;
+            _statsService.UpdateStats(_sessionCardCount, sessionTime);
+
+            // Reload stats to update UI
+            _dailyStats = _statsService.LoadTodayStats();
+            OnPropertyChanged(nameof(StudySummary));
+
+            Debug.WriteLine(
+                $"Session complete: {_sessionCardCount} cards in {sessionTime:mm\\:ss}"
+            );
         }
 
         private void UpdateCardScheduling(string rating)
@@ -188,42 +184,13 @@ namespace FlashCardWPF.ViewModel
             }
         }
         
-
-        public TimeSpan StudyTime()
-        {
-            if (HasCardsLeft())
-            {
-                return TimeSpan.Zero;
-            }
-            else
-            {
-                DateTime endTime = DateTime.Now;
-                TimeSpan totalTime = endTime - _startTime;
-
-                Debug.WriteLine($"Study time: {totalTime}");
-                return totalTime;
-            }
-        }
-
-        public TimeSpan StudyTimePerCard(TimeSpan totalTime)
-        {
-            if (_cardCount == 0)
-            {
-                return TimeSpan.Zero;
-            }
-
-            TimeSpan timePerCard = TimeSpan.FromSeconds(totalTime.TotalSeconds / _cardCount);
-            Debug.WriteLine($"Study time per card: {timePerCard}");
-            return timePerCard;
-        }
-
-        private bool HasCardsLeft()
-        {
-            return
-                (LearningCards?.Count > 0) ||
-                (ReviewCards?.Count > 0) ||
-                (NewCards?.Count > 0);
-        }
+        //private bool HasCardsLeft()
+        //{
+        //    return
+        //        (LearningCards?.Count > 0) ||
+        //        (ReviewCards?.Count > 0) ||
+        //        (NewCards?.Count > 0);
+        //}
 
         public Queue<Card> CreateReviewDeck(Deck deck)
         {
@@ -293,17 +260,8 @@ namespace FlashCardWPF.ViewModel
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-            // If either timing property changes, notify the UI that StudySummary also changed
-            if (propertyName is nameof(StudyTimeDeck) or nameof(StudyTimePerCardDeck))
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(StudySummary)));
-            }
-        }
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
 
