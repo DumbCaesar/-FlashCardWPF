@@ -4,25 +4,25 @@
     {
       "Front": "What does OOP stand for?",
       "Back": "Object-Oriented Programming",
-      "Interval": 2,
-      "EaseFactor": null,
-      "NextReview": "2025-11-01T08:41:04.8359496+01:00",
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T08:30:08.4750698+01:00",
       "IsNew": false
     },
     {
       "Front": "What is a variable?",
       "Back": "A named storage location in memory that holds a value",
       "Interval": 1,
-      "EaseFactor": 2.35,
-      "NextReview": "2025-10-31T08:41:08.4793302+01:00",
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T08:30:12.4901701+01:00",
       "IsNew": false
     },
     {
       "Front": "What is a loop?",
       "Back": "A programming construct that repeats a block of code multiple times",
-      "Interval": 1,
-      "EaseFactor": 2.35,
-      "NextReview": "2025-10-31T08:40:46.1858786+01:00",
+      "Interval": 2,
+      "EaseFactor": null,
+      "NextReview": "2025-11-01T08:29:45.8689076+01:00",
       "IsNew": false
     },
     {
@@ -30,31 +30,31 @@
       "Back": "A data structure that stores multiple values of the same type in a single variable",
       "Interval": 1,
       "EaseFactor": 2.5,
-      "NextReview": "2025-10-31T08:40:57.8066447+01:00",
+      "NextReview": "2025-10-31T08:30:14.9208644+01:00",
       "IsNew": false
     },
     {
       "Front": "What does IDE stand for?",
       "Back": "Integrated Development Environment",
-      "Interval": 4,
-      "EaseFactor": 3.199999999999999,
-      "NextReview": "2025-11-03T08:58:46.2337195+01:00",
+      "Interval": 2,
+      "EaseFactor": null,
+      "NextReview": "2025-11-01T08:29:53.0231942+01:00",
       "IsNew": false
     },
     {
       "Front": "What is a function?",
       "Back": "A reusable block of code that performs a specific task",
-      "Interval": 4,
-      "EaseFactor": 2.6,
-      "NextReview": "2025-11-03T08:40:58.8988755+01:00",
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T08:30:16.6779435+01:00",
       "IsNew": false
     },
     {
       "Front": "What is debugging?",
       "Back": "The process of finding and fixing errors in code",
-      "Interval": 1,
-      "EaseFactor": 2.35,
-      "NextReview": "2025-10-31T08:40:52.2049133+01:00",
+      "Interval": 2,
+      "EaseFactor": null,
+      "NextReview": "2025-11-01T08:29:55.3099073+01:00",
       "IsNew": false
     },
     {
@@ -62,39 +62,39 @@
       "Back": "A data type that represents text (a sequence of characters)",
       "Interval": 1,
       "EaseFactor": 2.5,
-      "NextReview": "2025-10-31T08:40:59.8579374+01:00",
+      "NextReview": "2025-10-31T08:30:19.6995148+01:00",
       "IsNew": false
     },
     {
       "Front": "What does API stand for?",
       "Back": "Application Programming Interface",
-      "Interval": 2,
-      "EaseFactor": null,
-      "NextReview": "2025-11-01T08:40:53.1064307+01:00",
+      "Interval": 0,
+      "EaseFactor": 2.3,
+      "NextReview": "2025-10-30T09:15:37.0048415+01:00",
       "IsNew": false
     },
     {
       "Front": "What is inheritance in OOP?",
       "Back": "When a class derives properties and methods from another class",
-      "Interval": 2,
-      "EaseFactor": null,
-      "NextReview": "2025-11-01T08:41:10.1789334+01:00",
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T08:30:27.8299593+01:00",
       "IsNew": false
     },
     {
       "Front": "What is a boolean?",
       "Back": "A data type that can only be true or false",
       "Interval": 2,
-      "EaseFactor": 2.65,
-      "NextReview": "2025-11-01T08:40:54.3954841+01:00",
+      "EaseFactor": null,
+      "NextReview": "2025-11-01T08:30:05.9730209+01:00",
       "IsNew": false
     },
     {
       "Front": "What is version control?",
       "Back": "A system that tracks changes to code over time (like Git)",
-      "Interval": 2,
-      "EaseFactor": 2.65,
-      "NextReview": "2025-11-01T08:41:06.0220825+01:00",
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T08:30:33.3312903+01:00",
       "IsNew": false
     }
   ]

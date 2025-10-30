@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,10 +21,22 @@ namespace FlashCardWPF.View
     /// </summary>
     public partial class CardView : Window
     {
+        private CardViewModel viewModel;
       
         public CardView()
         {
             InitializeComponent();
+            DataContext = viewModel;
+            Closing += OnClosing;
+            
+        }
+
+        private void OnClosing(object sender, CancelEventArgs e)
+        {
+            if (DataContext is CardViewModel viewModel)
+            {
+                viewModel.SaveDeck();
+            }
         }
     }
 }
