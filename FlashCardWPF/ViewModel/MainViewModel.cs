@@ -1,11 +1,16 @@
-﻿using FlashCardWPF.View;
+﻿using FlashCardWPF.Model;
+using FlashCardWPF.View;
+using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Windows;
 using System.Windows.Input;
 
-namespace FlashCardWPF.ViewModel 
+namespace FlashCardWPF.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
@@ -24,13 +29,13 @@ namespace FlashCardWPF.ViewModel
             }
         }
 
-        public ObservableCollection<string> Decks { get ; set; } 
+        public ObservableCollection<string> Decks { get; set; }
         public string? SelectedDeck { get; set; }
         public ICommand DeckDoubleClickCommand { get; }
-
         public ICommand CreateNewDeckCommand { get; }
+        public ICommand ImportNewDeckCommand { get; }
 
-        
+
 
         public MainViewModel()
         {
@@ -38,7 +43,7 @@ namespace FlashCardWPF.ViewModel
             string projectRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
             string dataPath = Path.Combine(projectRoot, "Data/Decks");
             string[] files = Directory.GetFiles(dataPath);
-            foreach(string file in files)
+            foreach (string file in files)
             {
                 Decks.Add(Path.GetFileNameWithoutExtension(file));
             }
@@ -47,6 +52,8 @@ namespace FlashCardWPF.ViewModel
                 _ => OnDeckDoubleClick());
 
             CreateNewDeckCommand = new RelayCommand(_ => OnCreateDeck());
+
+            ImportNewDeckCommand = new RelayCommand(_ => OnImportDeck());
         }
 
         private void OnCreateDeck()
@@ -54,6 +61,50 @@ namespace FlashCardWPF.ViewModel
             var newDeck = new NewDeckView();
             newDeck.Show();
         }
+
+        private void OnImportDeck()
+        {
+            string baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
+            string dataDir = Path.Combine(baseDir, "Data/Decks");
+
+            var dialog = new OpenFileDialog
+            {
+                Title = "Select a JSON file",
+                Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer)
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                bool success = false;
+                string selectedFile = dialog.FileName;
+                var json = File.ReadAllText(selectedFile);
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                };
+
+                Directory.CreateDirectory(dataDir);
+                string destFile = Path.Combine(
+                    dataDir,
+                    Path.GetFileName(selectedFile)
+                );
+
+                try
+                {
+                    File.WriteAllText(destFile, json);
+                    success = true;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+
+                if (success) MessageBox.Show("Import Successfull!", "SUCCESS", MessageBoxButton.OK, MessageBoxImage.Information);
+                else MessageBox.Show("Error Importing Deck", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
 
         private void OnDeckDoubleClick()
         {
