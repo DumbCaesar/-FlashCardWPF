@@ -70,7 +70,7 @@ StrokeThickness="1" />
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="1" Visibility="{Binding AreAnswersVisible, Converter={x:Static local:BoolToInverseVisibilityConverter.Instance}}" x:Name="BtnShow" Grid.ColumnSpan="2" CornerRadius="17" BorderThickness="1" BorderBrush="Black">
+                <Border Grid.Column="1" Visibility="{Binding ShowButtonHidden, Converter={x:Static local:BoolToInverseVisibilityConverter.Instance}}" x:Name="BtnShow" Grid.ColumnSpan="2" CornerRadius="17" BorderThickness="1" BorderBrush="Black">
                     <Button Content="Show" Width="50" Command="{Binding ShowAnswersCommand}" Height="30" FontWeight="Bold" Background="White" BorderThickness="0"/>
                 </Border>
                 <Border BorderBrush="Black" Style="{StaticResource AnswerButtonStyle}" x:Name="BtnAgain" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="17" Margin="5" Background="Red">
