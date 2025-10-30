@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlashCardWPF.View"
         mc:Ignorable="d"
-        Title="NewDeckView" Height="400" Width="500">
+        Title="NewDeckView" Height="400" Width="500"
+        ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
@@ -27,7 +28,16 @@
         <Label Content="Deck Name" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold"/>
         <TextBox Text="{Binding DeckName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Margin="5"/>
         <Label Content="Q/A:" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center"/>
-        <ListBox ItemsSource="{Binding Deck}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="5"/>
+        <ListBox ItemsSource="{Binding Deck}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="5">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Front}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Back}" Foreground="Gray"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Label Content="Question" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold"/>
         <Label Content="Answer" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold"/>
         <TextBox Text="{Binding CurrentQuestion, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="2" Margin="5"/>
