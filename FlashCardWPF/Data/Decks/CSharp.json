@@ -6,64 +6,64 @@
       "Back": "int, double, float, bool, char, decimal, byte, long, short",
       "Interval": null,
       "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "NextReview": "2025-10-30T10:13:26.3127356+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is the difference between string and String in C#?",
       "Back": "string is an alias for System.String. They are identical, but lowercase string is preferred by convention",
       "Interval": null,
       "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "NextReview": "2025-10-30T10:14:29.4471364+01:00",
+      "IsNew": false
     },
     {
-      "Front": "What does the 'var' keyword do in C#?",
+      "Front": "What does the \u0027var\u0027 keyword do in C#?",
       "Back": "It allows implicit typing where the compiler infers the type from the assigned value",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T10:04:37.2021303+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is the null-conditional operator in C#?",
       "Back": "The ?. operator, which safely accesses members only if the object is not null (e.g., obj?.Property)",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 4,
+      "EaseFactor": 2.6,
+      "NextReview": "2025-11-03T10:04:50.3502884+01:00",
+      "IsNew": false
     },
     {
       "Front": "What does the ?? operator do in C#?",
       "Back": "The null-coalescing operator returns the left operand if not null, otherwise returns the right operand",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T10:09:19.4534234+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is a namespace in C#?",
       "Back": "A container that organizes code and prevents naming conflicts by grouping related classes",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T10:09:21.7970491+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is the difference between const and readonly in C#?",
       "Back": "const is compile-time constant and must be initialized at declaration. readonly can be initialized at runtime in constructor",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T10:09:25.7783471+01:00",
+      "IsNew": false
     },
     {
       "Front": "What are properties in C#?",
       "Back": "Members that provide a flexible mechanism to read, write, or compute private fields using get and set accessors",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T10:09:27.2862306+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is an auto-implemented property?",
@@ -74,7 +74,7 @@
       "IsNew": true
     },
     {
-      "Front": "What does the 'static' keyword mean for a class member?",
+      "Front": "What does the \u0027static\u0027 keyword mean for a class member?",
       "Back": "The member belongs to the class itself rather than instances, and is shared across all objects",
       "Interval": null,
       "EaseFactor": null,
@@ -98,7 +98,7 @@
       "IsNew": true
     },
     {
-      "Front": "What is the 'this' keyword used for?",
+      "Front": "What is the \u0027this\u0027 keyword used for?",
       "Back": "To refer to the current instance of the class, often used to distinguish between parameters and fields",
       "Interval": null,
       "EaseFactor": null,
@@ -106,7 +106,7 @@
       "IsNew": true
     },
     {
-      "Front": "What is a List<T> in C#?",
+      "Front": "What is a List\u003CT\u003E in C#?",
       "Back": "A generic collection that represents a strongly-typed list of objects with dynamic size",
       "Interval": null,
       "EaseFactor": null,
@@ -115,7 +115,7 @@
     },
     {
       "Front": "What is string interpolation in C#?",
-      "Back": "A feature using $ prefix to embed expressions inside strings (e.g., $\"Hello {name}\")",
+      "Back": "A feature using $ prefix to embed expressions inside strings (e.g., $\u0022Hello {name}\u0022)",
       "Interval": null,
       "EaseFactor": null,
       "NextReview": "2025-10-30T00:00:00",
@@ -146,7 +146,7 @@
       "IsNew": true
     },
     {
-      "Front": "What is the 'new' keyword used for?",
+      "Front": "What is the \u0027new\u0027 keyword used for?",
       "Back": "To create instances of classes (objects), allocating memory on the heap",
       "Interval": null,
       "EaseFactor": null,
