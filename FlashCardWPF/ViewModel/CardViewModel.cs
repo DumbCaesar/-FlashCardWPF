@@ -127,6 +127,7 @@ namespace FlashCardWPF.ViewModel
             {
                 UpdateReviewCardScheduling(rating);
             }
+            if (CurrentCard.NextReview <= DateTime.Now.AddDays(1)) LearningCards.Enqueue(CurrentCard, CurrentCard.NextReview);
         }
 
         private void UpdateNewCardScheduling(string rating)
@@ -136,11 +137,9 @@ namespace FlashCardWPF.ViewModel
             {
                 case "Again":
                     CurrentCard.NextReview = DateTime.Now.AddMinutes(SpacedRepetitionConstants.AGAIN_NEW_CARD_MINUTES);
-                    LearningCards.Enqueue(CurrentCard, CurrentCard.NextReview);
                     break;
                 case "Hard":
                     CurrentCard.NextReview = DateTime.Now.AddMinutes(SpacedRepetitionConstants.HARD_NEW_CARD_MINUTES);
-                    LearningCards.Enqueue(CurrentCard, CurrentCard.NextReview);
                     break;
                 case "Good":
                     CurrentCard.NextReview = DateTime.Now.AddDays(SpacedRepetitionConstants.GOOD_NEW_CARD_DAYS);
@@ -165,22 +164,20 @@ namespace FlashCardWPF.ViewModel
                     CurrentCard.NextReview = DateTime.Now.AddMinutes(SpacedRepetitionConstants.AGAIN_REVIEW_MINUTES);
                     CurrentCard.Interval = 0;
                     CurrentCard.EaseFactor = Math.Max(SpacedRepetitionConstants.MIN_EASE_FACTOR, easeFactor - SpacedRepetitionConstants.AGAIN_EASE_PENALTY);
-                    LearningCards.Enqueue(CurrentCard, CurrentCard.NextReview);
                     break;
                 case "Hard":
-                    interval = (int)(interval * SpacedRepetitionConstants.HARD_INTERVAL_MULTIPLIER);
+                    interval = interval == 0 ? SpacedRepetitionConstants.GOOD_INITIAL_INTERVAL : (int)(interval * SpacedRepetitionConstants.HARD_INTERVAL_MULTIPLIER);
                     CurrentCard.NextReview = DateTime.Now.AddDays(interval);
                     CurrentCard.Interval = interval;
                     CurrentCard.EaseFactor = Math.Max(SpacedRepetitionConstants.MIN_EASE_FACTOR, easeFactor - SpacedRepetitionConstants.HARD_EASE_PENALTY);
-                    LearningCards.Enqueue(CurrentCard, CurrentCard.NextReview);
                     break;
                 case "Good":
-                    interval = (int)(interval * easeFactor);
+                    interval = interval == 0 ? SpacedRepetitionConstants.GOOD_INITIAL_INTERVAL : (int)(interval * easeFactor);
                     CurrentCard.NextReview = DateTime.Now.AddDays(interval);
                     CurrentCard.Interval = interval;
                     break;
                 case "Easy":
-                    interval = (int)(interval * easeFactor);
+                    interval = interval == 0 ? SpacedRepetitionConstants.EASY_INITIAL_INTERVAL : (int)(interval * easeFactor);
                     CurrentCard.NextReview = DateTime.Now.AddDays(interval);
                     CurrentCard.Interval = interval;
                     CurrentCard.EaseFactor = easeFactor + SpacedRepetitionConstants.EASY_EASE_BONUS;
