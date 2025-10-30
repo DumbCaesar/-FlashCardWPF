@@ -18,7 +18,9 @@ namespace FlashCardWPF.ViewModel
         private DateTime _sessionStartTime;
         private int _sessionCardCount = 1;
         private bool _areAnswersVisible;
+        private bool _showButtonHidden;
         private Card _currentCard;
+        private bool _deckFinished;
 
         public string StudySummary =>
        $"Total: {_dailyStats.TotalStudyTime:mm\\:ss} | " +
@@ -26,6 +28,18 @@ namespace FlashCardWPF.ViewModel
        $"Cards: {_dailyStats.TotalCards}";
 
 
+        public bool ShowButtonHidden
+        {
+            get => _showButtonHidden;
+            set
+            {
+                if (_showButtonHidden != value)
+                {
+                    _showButtonHidden = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public bool AreAnswersVisible
         {
             get => _areAnswersVisible;
@@ -71,14 +85,16 @@ namespace FlashCardWPF.ViewModel
             ReviewCards = CreateReviewDeck(CurrentDeck);
             NewCards = CreateNewCardDeck(CurrentDeck);
             CurrentCard = SetNextCard();
-
+            if (_deckFinished) ShowButtonHidden = true;
+            Debug.WriteLine($"Deck finished: {_deckFinished}");
+            Debug.WriteLine($"ShowButtonHidden value: {ShowButtonHidden}");
             _sessionStartTime = DateTime.Now;
-
             OnPropertyChanged(nameof(StudySummary));
         }
 
         private void ShowAnswers()
         {
+            ShowButtonHidden = true;
             AreAnswersVisible = true;
         }
 
@@ -96,6 +112,7 @@ namespace FlashCardWPF.ViewModel
             SaveSessionStats();
 
             CurrentCard = SetNextCard();
+            if (!_deckFinished) ShowButtonHidden = false;
         }
 
         private void SaveSessionStats()
@@ -180,14 +197,6 @@ namespace FlashCardWPF.ViewModel
                     break;
             }
         }
-        
-        //private bool HasCardsLeft()
-        //{
-        //    return
-        //        (LearningCards?.Count > 0) ||
-        //        (ReviewCards?.Count > 0) ||
-        //        (NewCards?.Count > 0);
-        //}
 
         public Queue<Card> CreateReviewDeck(Deck deck)
         {
@@ -214,10 +223,11 @@ namespace FlashCardWPF.ViewModel
                 return LearningCards.Dequeue();
             }
             
-            if (ReviewCards.Count != 0) return ReviewCards.Dequeue(); // get next review card
-            if (NewCards.Count != 0) return NewCards.Dequeue(); // get next new card
-            if (LearningCards.Count != 0) return LearningCards.Dequeue(); // if no due cards in learning, no review, no next then get next from learning
-            return null;
+            if (ReviewCards.Count > 0) return ReviewCards.Dequeue(); // get next review card
+            if (NewCards.Count > 0) return NewCards.Dequeue(); // get next new card
+            if (LearningCards.Count > 0) return LearningCards.Dequeue(); // if no due cards in learning, no review, no next then get next from learning
+            _deckFinished = true;
+            return new Card() { Front = "Congrats!" };
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
