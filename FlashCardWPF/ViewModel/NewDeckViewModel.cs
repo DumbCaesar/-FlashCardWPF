@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using FlashCardWPF.Model;
 
@@ -75,18 +76,32 @@ namespace FlashCardWPF.ViewModel
 
         private void CreateDeck()
         {
-            List<Card> deck = new List<Card>();
-            if(DeckName != null)
+            if(string.IsNullOrEmpty(DeckName) || Deck.Count == 0)
             {
-                foreach (var card in Deck)
-                {
-                    deck.Add(card);
-                    Debug.WriteLine("Deck creation successfull!");
-                }
+                MessageBox.Show("A minimum of one question is needed to create a deck!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
+
+            List<Card> deck = new List<Card>();
             NewDeck.Name = DeckName;
             NewDeck.Cards = deck;
-            NewDeck.SaveDeck();
+
+            try
+            {
+                NewDeck.SaveDeck();
+                MessageBox.Show("Deck created successfully!", "Success", MessageBoxButton.OK);
+                Debug.WriteLine("Deck creation successful!");
+            }
+
+            catch(Exception ex)
+            {
+                MessageBox.Show(
+                $"Failed to save deck: {ex.Message}",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+                Debug.WriteLine(ex);
+            }            
         }
 
         private void AddQuestion()
