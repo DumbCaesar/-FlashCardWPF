@@ -36,7 +36,7 @@ namespace FlashCardWPF.ViewModel
         {
             Decks = new ObservableCollection<string>();
             string projectRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
-            string dataPath = Path.Combine(projectRoot, "Data");
+            string dataPath = Path.Combine(projectRoot, "Data/Decks");
             string[] files = Directory.GetFiles(dataPath);
             foreach(string file in files)
             {

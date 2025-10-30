@@ -86,7 +86,7 @@ namespace FlashCardWPF.ViewModel
             }
             NewDeck.Name = DeckName;
             NewDeck.Cards = deck;
-            SaveNewDeckToFile();
+            NewDeck.SaveDeck();
         }
 
         private void AddQuestion()
@@ -104,23 +104,6 @@ namespace FlashCardWPF.ViewModel
         private void DeleteQuestion()
         {
             Debug.WriteLine("deleting question...");
-        }
-
-        private void SaveNewDeckToFile()
-        {
-            string baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
-            string dataDir = Path.Combine(baseDir, "Data");
-            string filePath = Path.Combine(dataDir, $"{DeckName}.json");
-
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-                WriteIndented = true
-            };
-
-            string json = JsonSerializer.Serialize(NewDeck, options);
-            File.WriteAllText(filePath, json);
-            Debug.WriteLine($"Deck saved to {filePath}");
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

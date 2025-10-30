@@ -27,16 +27,6 @@ namespace FlashCardWPF.View
         {
             InitializeComponent();
             DataContext = viewModel;
-            Closing += OnClosing;
-            
-        }
-
-        private void OnClosing(object sender, CancelEventArgs e)
-        {
-            if (DataContext is CardViewModel viewModel)
-            {
-                viewModel.SaveDeck();
-            }
         }
     }
 }
