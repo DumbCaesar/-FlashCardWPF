@@ -4,154 +4,154 @@
     {
       "Front": "What are the four pillars of OOP?",
       "Back": "Encapsulation, Inheritance, Polymorphism, and Abstraction",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:04:01.5580761+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is a class?",
       "Back": "A blueprint or template that defines the properties (fields) and behaviors (methods) of objects",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:04:03.3990727+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is an object?",
       "Back": "An instance of a class - a concrete entity created from a class template with specific values",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:04:04.751659+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is encapsulation?",
       "Back": "Bundling data and methods that work on that data within a class, and restricting direct access to some components",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:04:06.275048+01:00",
+      "IsNew": false
     },
     {
       "Front": "What are access modifiers?",
       "Back": "Keywords that control the visibility/accessibility of classes and members: public, private, protected, internal",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:04:07.2905368+01:00",
+      "IsNew": false
     },
     {
-      "Front": "What does 'private' access modifier mean?",
+      "Front": "What does \u0027private\u0027 access modifier mean?",
       "Back": "The member is only accessible within the same class",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:04:08.7830629+01:00",
+      "IsNew": false
     },
     {
-      "Front": "What does 'public' access modifier mean?",
+      "Front": "What does \u0027public\u0027 access modifier mean?",
       "Back": "The member is accessible from anywhere in the program",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:04:10.8210676+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is inheritance?",
       "Back": "A mechanism where a new class (child/derived) inherits properties and methods from an existing class (parent/base)",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:04:11.7930607+01:00",
+      "IsNew": false
     },
     {
-      "Front": "What is the 'base' keyword used for in C#?",
+      "Front": "What is the \u0027base\u0027 keyword used for in C#?",
       "Back": "To access members of the base (parent) class from within a derived (child) class",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:05:53.9376291+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is polymorphism?",
       "Back": "The ability of objects of different types to be accessed through the same interface, with each type responding in its own way",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:05:55.017363+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is method overriding?",
       "Back": "When a derived class provides a different implementation of a method that is already defined in its base class",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:05:55.9092822+01:00",
+      "IsNew": false
     },
     {
-      "Front": "What is the 'virtual' keyword used for?",
+      "Front": "What is the \u0027virtual\u0027 keyword used for?",
       "Back": "To allow a method in a base class to be overridden in derived classes",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:05:56.7756545+01:00",
+      "IsNew": false
     },
     {
-      "Front": "What is the 'override' keyword used for?",
+      "Front": "What is the \u0027override\u0027 keyword used for?",
       "Back": "To provide a new implementation of a virtual method from the base class in a derived class",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:05:57.6515674+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is abstraction?",
       "Back": "Hiding complex implementation details and showing only the essential features of an object",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:06:59.9129429+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is an abstract class?",
       "Back": "A class that cannot be instantiated and may contain abstract methods that must be implemented by derived classes",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:07:00.9391546+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is an interface?",
       "Back": "A contract that defines a set of methods and properties that implementing classes must provide",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:07:02.2942295+01:00",
+      "IsNew": false
     },
     {
       "Front": "Can a class inherit from multiple classes in C#?",
       "Back": "No, C# only supports single inheritance for classes, but a class can implement multiple interfaces",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:07:03.624714+01:00",
+      "IsNew": false
     },
     {
-      "Front": "What is the 'protected' access modifier?",
+      "Front": "What is the \u0027protected\u0027 access modifier?",
       "Back": "The member is accessible within its class and by derived classes, but not from outside",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:07:04.6016016+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is a getter and setter?",
       "Back": "Methods that provide controlled access to private fields - getter retrieves the value, setter assigns a new value",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-10-31T13:07:05.5665108+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is the difference between an abstract class and an interface?",
@@ -162,7 +162,7 @@
       "IsNew": true
     },
     {
-      "Front": "What is a constructor's purpose in OOP?",
+      "Front": "What is a constructor\u0027s purpose in OOP?",
       "Back": "To initialize an object when it is created, setting up initial state and allocating resources",
       "Interval": null,
       "EaseFactor": null,
@@ -170,7 +170,7 @@
       "IsNew": true
     },
     {
-      "Front": "What is the 'sealed' keyword in C#?",
+      "Front": "What is the \u0027sealed\u0027 keyword in C#?",
       "Back": "Prevents a class from being inherited or a method from being overridden further",
       "Interval": null,
       "EaseFactor": null,

@@ -16,7 +16,7 @@ namespace FlashCardWPF.ViewModel
         private readonly StatsService _statsService;
         private DailyStats _dailyStats;
         private DateTime _sessionStartTime;
-        private int _sessionCardCount = 0;
+        private int _sessionCardCount = 1;
         private bool _areAnswersVisible;
         private Card _currentCard;
 
@@ -85,7 +85,7 @@ namespace FlashCardWPF.ViewModel
         private void GoToNextQuestion(object param)
         {
             AreAnswersVisible = false;
-            _sessionCardCount++;
+            _sessionCardCount = 1;
 
             Debug.WriteLine($"Caller is {param}");
             Button button = (Button)param;
