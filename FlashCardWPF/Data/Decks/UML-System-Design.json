@@ -1,0 +1,125 @@
+{
+  "Name": "UML-and-System-Design",
+  "Cards": [
+    {
+      "Front": "What does UML stand for?",
+      "Back": "Unified Modeling Language - a standardized visual language for modeling software systems",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is a class diagram in UML?",
+      "Back": "A diagram that shows the structure of a system by displaying classes, their attributes, methods, and relationships between classes",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What are the three sections of a UML class box?",
+      "Back": "Top: Class name, Middle: Attributes/fields, Bottom: Methods/operations",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What does a solid line with a filled diamond represent in UML?",
+      "Back": "Composition - a strong 'has-a' relationship where the part cannot exist without the whole",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What does a solid line with an empty diamond represent in UML?",
+      "Back": "Aggregation - a weak 'has-a' relationship where the part can exist independently",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What does a solid line with a closed arrow represent in UML?",
+      "Back": "Inheritance/Generalization - an 'is-a' relationship where a subclass inherits from a superclass",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What visibility symbols are used in UML for public, private, and protected?",
+      "Back": "+ for public, - for private, # for protected",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is a use case diagram?",
+      "Back": "A diagram showing interactions between users (actors) and the system, depicting what the system does from a user's perspective",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is multiplicity in UML relationships?",
+      "Back": "Numbers indicating how many instances of one class relate to instances of another (e.g., 1, 0..1, 1..*, *)",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What does a dashed line with an open arrow represent in UML?",
+      "Back": "Dependency - one class depends on or uses another class",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is a sequence diagram used for?",
+      "Back": "To show how objects interact over time, displaying the order of method calls and messages between objects",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is coupling in system design?",
+      "Back": "The degree of interdependence between modules. Low coupling is desirable for maintainability",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is cohesion in system design?",
+      "Back": "The degree to which elements within a module belong together. High cohesion is desirable",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What does an abstract class look like in UML?",
+      "Back": "The class name is written in italics or has {abstract} notation",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is the purpose of system design?",
+      "Back": "To define the architecture, components, modules, interfaces, and data to satisfy specified requirements",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    }
+  ]
+}

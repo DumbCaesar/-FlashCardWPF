@@ -1,0 +1,165 @@
+{
+  "Name": "Programming-Basics",
+  "Cards": [
+    {
+      "Front": "What is a variable?",
+      "Back": "A named storage location in memory that holds a value which can change during program execution",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is an algorithm?",
+      "Back": "A step-by-step procedure or formula for solving a problem or accomplishing a task",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What are the three basic control structures in programming?",
+      "Back": "Sequence (linear execution), Selection (if/else), and Iteration (loops)",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is the difference between a while loop and a for loop?",
+      "Back": "While loops repeat while a condition is true. For loops are typically used when the number of iterations is known",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is a function/method?",
+      "Back": "A reusable block of code that performs a specific task, can accept parameters and return a value",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is the difference between parameters and arguments?",
+      "Back": "Parameters are variables in the method definition, arguments are the actual values passed when calling the method",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is scope in programming?",
+      "Back": "The region of code where a variable is accessible. Variables can have local, class, or global scope",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is an array?",
+      "Back": "A data structure that stores a fixed-size collection of elements of the same type in contiguous memory",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What does 'index' mean in arrays?",
+      "Back": "The position of an element in an array. Most languages use zero-based indexing (first element is at index 0)",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is a boolean value?",
+      "Back": "A data type that can only be true or false, used for logical operations and conditions",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What are logical operators?",
+      "Back": "Operators that work with boolean values: AND (&&), OR (||), NOT (!)",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is the difference between = and == ?",
+      "Back": "= is assignment (assigns a value), == is comparison (checks if two values are equal)",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is concatenation?",
+      "Back": "Joining two or more strings together into one string",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is debugging?",
+      "Back": "The process of finding and fixing errors (bugs) in code",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is the difference between syntax errors and logic errors?",
+      "Back": "Syntax errors violate language rules and prevent compilation. Logic errors compile but produce incorrect results",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is iteration?",
+      "Back": "The process of repeating a set of instructions, typically using loops",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What does it mean to 'initialize' a variable?",
+      "Back": "To declare a variable and assign it an initial value",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is a comment in code?",
+      "Back": "Text in code that is ignored by the compiler, used to explain code for human readers",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is a nested loop?",
+      "Back": "A loop inside another loop, where the inner loop completes all iterations for each iteration of the outer loop",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    },
+    {
+      "Front": "What is modulo (%) operator?",
+      "Back": "An operator that returns the remainder after division (e.g., 7 % 3 = 1)",
+      "Interval": null,
+      "EaseFactor": null,
+      "NextReview": "2025-10-30T00:00:00",
+      "IsNew": true
+    }
+  ]
+}
