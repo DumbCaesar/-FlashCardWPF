@@ -3,9 +3,6 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
-# json
-FlashCardWPF/Data/**/*.json
-
 # dotenv files
 .env
 
