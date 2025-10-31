@@ -88,7 +88,6 @@ namespace FlashCardWPF.ViewModel
             Debug.WriteLine($"Deck finished: {_deckFinished}");
             Debug.WriteLine($"ShowButtonHidden value: {ShowButtonHidden}");
             _sessionStartTime = DateTime.Now;
-            OnPropertyChanged(nameof(StudySummary));
         }
 
         private void ShowAnswers()
