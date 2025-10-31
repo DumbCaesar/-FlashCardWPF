@@ -16,6 +16,8 @@ namespace FlashCardWPF.ViewModel
         private Card _selectedCard;
         private Deck NewDeck { get; set; } = new Deck();
 
+        public event Action<string>? DeckCreated;
+
         public Card SelectedCard
         {
             get => _selectedCard;
@@ -102,8 +104,11 @@ namespace FlashCardWPF.ViewModel
                 NewDeck.Name = DeckName;
                 NewDeck.Cards = deck;
                 NewDeck.SaveDeck();
+                DeckCreated?.Invoke(DeckName);
+                DeckName = null!;
                 MessageBox.Show("Deck created successfully!", "Success", MessageBoxButton.OK);
                 Debug.WriteLine("Deck creation successful!");
+                
             }
 
             catch(Exception ex)
@@ -125,7 +130,8 @@ namespace FlashCardWPF.ViewModel
                 Deck.Add(card);
                 Debug.WriteLine("Card creation succesfull!");
                 Debug.WriteLine($"Front: {CurrentQuestion} Back: {CurrentAnswer}");
-
+                CurrentAnswer = null!;
+                CurrentQuestion = null!;
             }
         }
 
