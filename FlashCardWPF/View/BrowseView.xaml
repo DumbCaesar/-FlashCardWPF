@@ -35,6 +35,8 @@
             <TextBox Margin="5" Text="{Binding SelectedCard.Front}" Height="50" AcceptsReturn="True" TextWrapping="Wrap" />
             <Label Content="Back" FontWeight="Bold" />
             <TextBox Margin="5" Text="{Binding SelectedCard.Back}" Height="50" AcceptsReturn="True" TextWrapping="Wrap" />
+            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="2">
+                <Button Command="{Binding SaveCardCommand}" Content="Save" Background="White" BorderThickness="0" Margin="4" />
             <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="2" Background="LightGray">
                 <Button Content="Save" Background="LightGray" BorderThickness="0" Margin="4" FontWeight="SemiBold"/>
             </Border>
