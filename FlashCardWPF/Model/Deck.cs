@@ -35,6 +35,10 @@ namespace FlashCardWPF.Model
             if (deck != null)
             {
                 deck.Name = deckName;
+                foreach (var card in deck.Cards)
+                {
+                    card.DeckName = deckName;
+                }
             }
             return deck ?? throw new InvalidOperationException("Failed to load deck");
         }

@@ -30,6 +30,7 @@ namespace FlashCardWPF.ViewModel
             }
         }
 
+        public BrowseViewModel BrowseViewModel { get; set; }
         public NewDeckViewModel NewDeckViewModel
         {
             get => _newDeckViewModel;
@@ -48,6 +49,7 @@ namespace FlashCardWPF.ViewModel
         public ICommand DeckDoubleClickCommand { get; }
         public ICommand CreateNewDeckCommand { get; }
         public ICommand ImportNewDeckCommand { get; }
+        public ICommand OpenBrowseCommand { get; }
 
 
 
@@ -68,8 +70,15 @@ namespace FlashCardWPF.ViewModel
             CreateNewDeckCommand = new RelayCommand(_ => OnCreateDeck());
 
             ImportNewDeckCommand = new RelayCommand(_ => OnImportDeck());
+            OpenBrowseCommand = new RelayCommand(_ => OnBrowseCards());
         }
 
+        private void OnBrowseCards()
+        {
+            BrowseViewModel = new BrowseViewModel();
+            var browseView = new BrowseView { DataContext = BrowseViewModel };
+            browseView.Show();
+        }
         private void OnCreateDeck()
         {
             NewDeckViewModel = new NewDeckViewModel();
