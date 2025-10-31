@@ -15,6 +15,7 @@ namespace FlashCardWPF.ViewModel
     public class MainViewModel : INotifyPropertyChanged
     {
         private CardViewModel _cardViewModel;
+        private NewDeckViewModel _newDeckViewModel;
 
         public CardViewModel CardViewModel
         {
@@ -24,6 +25,19 @@ namespace FlashCardWPF.ViewModel
                 if (_cardViewModel != value)
                 {
                     _cardViewModel = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public NewDeckViewModel NewDeckViewModel
+        {
+            get => _newDeckViewModel;
+            set
+            {
+                if (_newDeckViewModel != value)
+                {
+                    _newDeckViewModel = value;
                     OnPropertyChanged();
                 }
             }
@@ -58,7 +72,14 @@ namespace FlashCardWPF.ViewModel
 
         private void OnCreateDeck()
         {
-            var newDeck = new NewDeckView();
+            NewDeckViewModel = new NewDeckViewModel();
+            NewDeckViewModel.DeckCreated += deckName =>
+            {
+                if (!Decks.Contains(deckName))
+                    Decks.Add(deckName);
+            };
+
+            var newDeck = new NewDeckView { DataContext = NewDeckViewModel };
             newDeck.ShowDialog();
         }
 
