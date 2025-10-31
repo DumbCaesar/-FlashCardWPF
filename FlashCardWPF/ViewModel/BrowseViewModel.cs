@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using FlashCardWPF.Model;
 
 namespace FlashCardWPF.ViewModel
@@ -15,6 +16,7 @@ namespace FlashCardWPF.ViewModel
     public class BrowseViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<string> ListOfDecks { get; set; }
+        public ICommand SaveCardCommand { get; set; }
         private ObservableCollection<Card> _listOfCards;
         public string CurrentDeckName { get; set; }
         private Card _selectedCard;
@@ -70,6 +72,24 @@ namespace FlashCardWPF.ViewModel
             SelectedIndex = 0;
             CurrentDeckName = ListOfDecks[0];
             ListOfCards = GetCards();
+            SaveCardCommand = new RelayCommand(_ => SaveQuestion());
+        }
+
+        private void SaveQuestion()
+        {
+            Deck deck = new Deck(SelectedCard.DeckName);
+            if (SelectedIndex == 0)
+            {
+                deck.Cards = ListOfCards.Where(c => c.DeckName == SelectedCard.DeckName).ToList();
+            }
+            else
+            {
+                deck.Cards = ListOfCards.ToList();
+            }
+            Debug.WriteLine($"Front: {SelectedCard.Front}");
+            Debug.WriteLine("Saving question...");
+            deck.SaveDeck();
+
         }
 
         public ObservableCollection<string> GetDeckNames()
