@@ -16,7 +16,6 @@ namespace FlashCardWPF.ViewModel
         private readonly StatsService _statsService;
         private DailyStats _dailyStats;
         private DateTime _sessionStartTime;
-        private int _sessionCardCount = 1;
         private bool _areAnswersVisible;
         private bool _showButtonHidden;
         private Card _currentCard;
@@ -101,7 +100,6 @@ namespace FlashCardWPF.ViewModel
         private void GoToNextQuestion(object param)
         {
             AreAnswersVisible = false;
-            _sessionCardCount = 1;
 
             Debug.WriteLine($"Caller is {param}");
             Button button = (Button)param;
@@ -113,19 +111,21 @@ namespace FlashCardWPF.ViewModel
 
             CurrentCard = SetNextCard();
             if (!_deckFinished) ShowButtonHidden = false;
+
+            _sessionStartTime = DateTime.Now;
         }
 
         private void SaveSessionStats()
         {
-            TimeSpan sessionTime = DateTime.Now - _sessionStartTime;
-            _statsService.UpdateStats(_sessionCardCount, sessionTime);
+            TimeSpan cardTime = DateTime.Now - _sessionStartTime;
+            _statsService.UpdateStats(1, cardTime);
 
             // Reload stats to update UI
             _dailyStats = _statsService.LoadTodayStats();
             OnPropertyChanged(nameof(StudySummary));
 
             Debug.WriteLine(
-                $"Session complete: {_sessionCardCount} cards in {sessionTime:mm\\:ss}"
+            $"Card reviewed in {cardTime:mm\\:ss}"
             );
         }
 
