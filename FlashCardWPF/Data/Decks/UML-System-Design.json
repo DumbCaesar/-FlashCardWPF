@@ -1,85 +1,85 @@
 {
-  "Name": "UML-and-System-Design",
+  "Name": "UML-System-Design",
   "Cards": [
     {
       "Front": "What does UML stand for?",
       "Back": "Unified Modeling Language - a standardized visual language for modeling software systems",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 2,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-11-01T13:21:35.5737509+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is a class diagram in UML?",
       "Back": "A diagram that shows the structure of a system by displaying classes, their attributes, methods, and relationships between classes",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 2,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-11-01T13:21:36.6478874+01:00",
+      "IsNew": false
     },
     {
       "Front": "What are the three sections of a UML class box?",
       "Back": "Top: Class name, Middle: Attributes/fields, Bottom: Methods/operations",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 2,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-11-01T13:21:37.95642+01:00",
+      "IsNew": false
     },
     {
       "Front": "What does a solid line with a filled diamond represent in UML?",
-      "Back": "Composition - a strong 'has-a' relationship where the part cannot exist without the whole",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Back": "Composition - a strong \u0027has-a\u0027 relationship where the part cannot exist without the whole",
+      "Interval": 2,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-11-01T13:21:39.0335985+01:00",
+      "IsNew": false
     },
     {
       "Front": "What does a solid line with an empty diamond represent in UML?",
-      "Back": "Aggregation - a weak 'has-a' relationship where the part can exist independently",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Back": "Aggregation - a weak \u0027has-a\u0027 relationship where the part can exist independently",
+      "Interval": 2,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-11-01T13:21:40.1276593+01:00",
+      "IsNew": false
     },
     {
       "Front": "What does a solid line with a closed arrow represent in UML?",
-      "Back": "Inheritance/Generalization - an 'is-a' relationship where a subclass inherits from a superclass",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Back": "Inheritance/Generalization - an \u0027is-a\u0027 relationship where a subclass inherits from a superclass",
+      "Interval": 2,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-11-01T13:21:41.1580979+01:00",
+      "IsNew": false
     },
     {
       "Front": "What visibility symbols are used in UML for public, private, and protected?",
-      "Back": "+ for public, - for private, # for protected",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Back": "\u002B for public, - for private, # for protected",
+      "Interval": 2,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-11-01T13:21:42.1617529+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is a use case diagram?",
-      "Back": "A diagram showing interactions between users (actors) and the system, depicting what the system does from a user's perspective",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Back": "A diagram showing interactions between users (actors) and the system, depicting what the system does from a user\u0027s perspective",
+      "Interval": 2,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-11-01T13:21:43.2340881+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is multiplicity in UML relationships?",
       "Back": "Numbers indicating how many instances of one class relate to instances of another (e.g., 1, 0..1, 1..*, *)",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 2,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-11-01T13:21:44.2585555+01:00",
+      "IsNew": false
     },
     {
       "Front": "What does a dashed line with an open arrow represent in UML?",
       "Back": "Dependency - one class depends on or uses another class",
-      "Interval": null,
-      "EaseFactor": null,
-      "NextReview": "2025-10-30T00:00:00",
-      "IsNew": true
+      "Interval": 2,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-11-01T13:21:45.3854532+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is a sequence diagram used for?",
