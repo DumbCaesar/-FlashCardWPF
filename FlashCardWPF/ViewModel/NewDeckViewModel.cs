@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using FlashCardWPF.Model;
@@ -20,7 +13,22 @@ namespace FlashCardWPF.ViewModel
         private string _deckName;
         private string _currentQuestion;
         private string _currentAnswer;
+        private Card _selectedCard;
         private Deck NewDeck { get; set; } = new Deck();
+
+        public Card SelectedCard
+        {
+            get => _selectedCard;
+            set
+            {
+                if(_selectedCard  != value)
+                {
+                    _selectedCard = value;
+                    OnPropertyChanged();
+                    Debug.WriteLine($"Selcted card is: {_selectedCard?.Front}");
+                }
+            }
+        }
 
         public string DeckName 
         {
@@ -83,11 +91,16 @@ namespace FlashCardWPF.ViewModel
             }
 
             List<Card> deck = new List<Card>();
-            NewDeck.Name = DeckName;
-            NewDeck.Cards = deck;
 
             try
             {
+                foreach (Card card in Deck)
+                {
+                    deck.Add(card);
+                }
+
+                NewDeck.Name = DeckName;
+                NewDeck.Cards = deck;
                 NewDeck.SaveDeck();
                 MessageBox.Show("Deck created successfully!", "Success", MessageBoxButton.OK);
                 Debug.WriteLine("Deck creation successful!");
@@ -118,7 +131,14 @@ namespace FlashCardWPF.ViewModel
 
         private void DeleteQuestion()
         {
-            Debug.WriteLine("deleting question...");
+            if (SelectedCard != null)
+            {
+                Deck.Remove(SelectedCard);
+            }
+            else
+            {
+                MessageBox.Show("You must select a question from Q/A to remove.", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

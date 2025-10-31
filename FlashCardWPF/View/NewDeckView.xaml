@@ -28,7 +28,7 @@
         <Label Content="Deck Name" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Bold"/>
         <TextBox Text="{Binding DeckName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" Margin="5"/>
         <Label Content="Q/A:" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center"/>
-        <ListBox ItemsSource="{Binding Deck}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="5">
+        <ListBox ItemsSource="{Binding Deck}" SelectedItem="{Binding SelectedCard, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="5">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>

@@ -59,7 +59,7 @@ namespace FlashCardWPF.ViewModel
         private void OnCreateDeck()
         {
             var newDeck = new NewDeckView();
-            newDeck.Show();
+            newDeck.ShowDialog();
         }
 
         private void OnImportDeck()
