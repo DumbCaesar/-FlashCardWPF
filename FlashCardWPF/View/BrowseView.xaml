@@ -35,11 +35,14 @@
             <TextBox Margin="5" Text="{Binding SelectedCard.Front}" Height="50" AcceptsReturn="True" TextWrapping="Wrap" />
             <Label Content="Back" FontWeight="Bold" />
             <TextBox Margin="5" Text="{Binding SelectedCard.Back}" Height="50" AcceptsReturn="True" TextWrapping="Wrap" />
-            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="2" Background="LightGray">
-                <Button Command="{Binding SaveCardCommand}" Content="Save" BorderThickness="0" Margin="4" Background="LightGray" FontWeight="SemiBold"/>
+            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="2" Background="LightSeaGreen">
+                <Button Command="{Binding SaveCardCommand}" Content="Save" BorderThickness="0" Margin="4" Background="LightSeaGreen" FontWeight="SemiBold"/>
             </Border>
-            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="2" Background="Bisque">
-                <Button Command="{Binding CreateNewCardCommand}" Content="Create New Card" BorderThickness="0" Margin="4" Background="Bisque" FontWeight="SemiBold"/>
+            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="2" Background="MediumVioletRed">
+                <Button Command="{Binding DeleteCardCommand}" Content="Delete" BorderThickness="0" Margin="4" Background="MediumVioletRed" FontWeight="SemiBold"/>
+            </Border>
+            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="2" Background="DeepSkyBlue">
+                <Button Command="{Binding CreateNewCardCommand}" Content="Create New Card" BorderThickness="0" Margin="4" Background="DeepSkyBlue" FontWeight="SemiBold"/>
             </Border>
         </StackPanel>
     </Grid>
