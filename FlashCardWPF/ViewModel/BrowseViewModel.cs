@@ -25,6 +25,7 @@ namespace FlashCardWPF.ViewModel
         public string CurrentDeckName { get; set; }
 
         public ICommand SaveCardCommand { get; set; }
+        public ICommand DeleteCardCommand { get; set; }
         public ICommand CreateNewCardCommand { get; set; }
 
         public int SelectedIndex
@@ -82,6 +83,7 @@ namespace FlashCardWPF.ViewModel
             ListOfCards = GetCards();
             SaveCardCommand = new RelayCommand(_ => SaveQuestion());
             CreateNewCardCommand = new RelayCommand(_ => CreateNewCard());
+            DeleteCardCommand = new RelayCommand(_ => DeleteCard());
         }
 
         private void SaveQuestion()
@@ -99,6 +101,19 @@ namespace FlashCardWPF.ViewModel
             Debug.WriteLine("Saving question...");
             deck.SaveDeck();
 
+        }
+
+        private void DeleteCard()
+        {
+            Deck deck = new Deck(SelectedCard.DeckName);
+            if(SelectedCard == null)
+            {
+                MessageBox.Show("You must select a card to delete", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            ListOfCards.Remove(SelectedCard);
+            deck.Cards = ListOfCards.ToList();
+            deck.SaveDeck();
         }
 
         private void CreateNewCard()
