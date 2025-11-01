@@ -22,7 +22,7 @@ namespace FlashCardWPF.ViewModel
         private Card _selectedCard;
         private int _selectedIndex;
         private ObservableCollection<Card> _listOfCards;
-        public ObservableCollection<string> ListOfDecks { get; set; }
+        private ObservableCollection<string> _listOfDecks;
         public string CurrentDeckName { get; set; }
 
         public ICommand SaveCardCommand { get; set; }
@@ -30,6 +30,18 @@ namespace FlashCardWPF.ViewModel
         public ICommand CreateNewCardCommand { get; set; }
         public ICommand DeleteDeckCommand { get; set; }
 
+        public ObservableCollection<string> ListOfDecks
+        {
+            get => _listOfDecks;
+            set
+            {
+                if (_listOfDecks != value)
+                {
+                    _listOfDecks = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public int SelectedIndex
         {
             get => _selectedIndex;
@@ -38,11 +50,15 @@ namespace FlashCardWPF.ViewModel
                 if (_selectedIndex != value)
                 {
                     _selectedIndex = value;
+                    Debug.WriteLine($"New SelectedIndex: {_selectedIndex}");
                     OnPropertyChanged();
 
-                    CurrentDeckName = ListOfDecks[_selectedIndex];
-                    ListOfCards = GetCards();
-                    Debug.WriteLine($"Changed deck to {CurrentDeckName}");
+                    if (_selectedIndex >= 0)
+                    {
+                        CurrentDeckName = ListOfDecks[_selectedIndex];
+                        ListOfCards = GetCards();
+                        Debug.WriteLine($"Changed deck to {CurrentDeckName}");
+                    }
                 }
             }
         }
@@ -99,6 +115,8 @@ namespace FlashCardWPF.ViewModel
             {
                 ConfirmDeleteDeck();
             }
+            ListOfDecks = GetDeckNames();
+            SelectedIndex = 0;
         }
 
         private void ConfirmDeleteAllDecks()
