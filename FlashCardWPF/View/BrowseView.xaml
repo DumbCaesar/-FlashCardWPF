@@ -51,7 +51,7 @@
         <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="0,270,2,44" Background="LightGray" Grid.Column="1" HorizontalAlignment="Right" Width="184" Height="30">
             <Button Command="{Binding ResetDeckCommand}" Content="Reset Deck" BorderThickness="0" Margin="4" Background="LightGray" FontWeight="SemiBold"/>
         </Border>
-        <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="3,305,2,9" Background="LightGray" Grid.Column="1" Height="30">
+        <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="2,305,2,9" Background="LightGray" Grid.Column="1" Height="30">
             <Button Command="{Binding DeleteDeckCommand}" Content="Delete Deck" BorderThickness="0" Margin="4,4,4,4" Background="LightGray" FontWeight="SemiBold"/>
         </Border>
     </Grid>
