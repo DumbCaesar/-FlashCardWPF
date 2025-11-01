@@ -11,7 +11,7 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        
+
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -45,5 +45,11 @@
                 <Button Command="{Binding CreateNewCardCommand}" Content="Create New Card" BorderThickness="0" Margin="4" Background="DeepSkyBlue" FontWeight="SemiBold"/>
             </Border>
         </StackPanel>
+        <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="2,270,0,44" Background="LightGray" Grid.Column="1" HorizontalAlignment="Left" Width="184" Height="30">
+            <Button Command="{Binding ResetCardCommand}" Content="Reset Card" BorderThickness="0" Margin="4" Background="LightGray" FontWeight="SemiBold"/>
+        </Border>
+        <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="0,270,2,44" Background="LightGray" Grid.Column="1" HorizontalAlignment="Right" Width="184" Height="30">
+            <Button Command="{Binding ResetDeckCommand}" Content="Reset Deck" BorderThickness="0" Margin="4" Background="LightGray" FontWeight="SemiBold"/>
+        </Border>
     </Grid>
 </Window>
