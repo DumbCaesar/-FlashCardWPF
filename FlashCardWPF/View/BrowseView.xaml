@@ -29,7 +29,7 @@
             </ListView>
 
         </Grid>
-        
+
         <StackPanel Grid.Column="1">
             <Label Content="Front" FontWeight="Bold" />
             <TextBox Margin="5" Text="{Binding SelectedCard.Front}" Height="50" AcceptsReturn="True" TextWrapping="Wrap" />
@@ -37,6 +37,9 @@
             <TextBox Margin="5" Text="{Binding SelectedCard.Back}" Height="50" AcceptsReturn="True" TextWrapping="Wrap" />
             <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="2" Background="LightGray">
                 <Button Command="{Binding SaveCardCommand}" Content="Save" BorderThickness="0" Margin="4" Background="LightGray" FontWeight="SemiBold"/>
+            </Border>
+            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="10" Margin="2" Background="Bisque">
+                <Button Command="{Binding CreateNewCardCommand}" Content="Create New Card" BorderThickness="0" Margin="4" Background="Bisque" FontWeight="SemiBold"/>
             </Border>
         </StackPanel>
     </Grid>

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using FlashCardWPF.Model;
 
@@ -15,12 +16,16 @@ namespace FlashCardWPF.ViewModel
 {
     public class BrowseViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<string> ListOfDecks { get; set; }
-        public ICommand SaveCardCommand { get; set; }
-        private ObservableCollection<Card> _listOfCards;
-        public string CurrentDeckName { get; set; }
+        private string _originalFront;
+        private string _originalBack;
         private Card _selectedCard;
         private int _selectedIndex;
+        private ObservableCollection<Card> _listOfCards;
+        public ObservableCollection<string> ListOfDecks { get; set; }
+        public string CurrentDeckName { get; set; }
+
+        public ICommand SaveCardCommand { get; set; }
+        public ICommand CreateNewCardCommand { get; set; }
 
         public int SelectedIndex
         {
@@ -43,9 +48,12 @@ namespace FlashCardWPF.ViewModel
             get => _selectedCard;
             set
             {
-                if (_selectedCard != value)
+                _selectedCard = value;
+
+                if (_selectedCard != null)
                 {
-                    _selectedCard = value;
+                    _originalFront = value.Front;
+                    _originalBack = value.Back;
                     OnPropertyChanged();
                     Debug.WriteLine($"Selected card is: {_selectedCard.Front}");
                 }
@@ -73,6 +81,7 @@ namespace FlashCardWPF.ViewModel
             CurrentDeckName = ListOfDecks[0];
             ListOfCards = GetCards();
             SaveCardCommand = new RelayCommand(_ => SaveQuestion());
+            CreateNewCardCommand = new RelayCommand(_ => CreateNewCard());
         }
 
         private void SaveQuestion()
@@ -90,6 +99,48 @@ namespace FlashCardWPF.ViewModel
             Debug.WriteLine("Saving question...");
             deck.SaveDeck();
 
+        }
+
+        private void CreateNewCard()
+        {
+            if (SelectedIndex == 0)
+            {
+                MessageBox.Show("You must select a deck to create a new card.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (SelectedCard == null)
+            {
+                MessageBox.Show("You must select a card to create a new one.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var newCard = new Card
+            {
+                Front = SelectedCard.Front,
+                Back = SelectedCard.Back,
+                DeckName = CurrentDeckName,
+                IsNew = true,
+                NextReview = DateTime.Now
+            };
+
+            ListOfCards.Add(newCard);
+
+            // Restore to original values
+            SelectedCard.Front = _originalFront;
+            SelectedCard.Back = _originalBack;
+
+            // Needed to make ObservableCollection refresh
+            // OnPropertyChanged(nameof(CurrentCard).. does not refresh collection...
+            var temp = SelectedCard;
+            int index = ListOfCards.IndexOf(temp);
+            ListOfCards.RemoveAt(index);
+            ListOfCards.Insert(index, temp);
+            SelectedCard = temp;
+
+            Deck deck = new Deck(CurrentDeckName);
+            deck.Cards = ListOfCards.ToList();
+            deck.SaveDeck();
         }
 
         public ObservableCollection<string> GetDeckNames()
