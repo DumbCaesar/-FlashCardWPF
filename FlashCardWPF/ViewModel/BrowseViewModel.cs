@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using FlashCardWPF.Model;
 
@@ -27,6 +28,7 @@ namespace FlashCardWPF.ViewModel
         public ICommand SaveCardCommand { get; set; }
         public ICommand DeleteCardCommand { get; set; }
         public ICommand CreateNewCardCommand { get; set; }
+        public ICommand DeleteDeckCommand { get; set; }
 
         public int SelectedIndex
         {
@@ -84,8 +86,51 @@ namespace FlashCardWPF.ViewModel
             SaveCardCommand = new RelayCommand(_ => SaveQuestion());
             CreateNewCardCommand = new RelayCommand(_ => CreateNewCard());
             DeleteCardCommand = new RelayCommand(_ => DeleteCard());
+            DeleteDeckCommand = new RelayCommand(_ => DeleteDeck());
         }
 
+        private void DeleteDeck()
+        {
+            if (SelectedIndex == 0)
+            {
+                ConfirmDeleteAllDecks();
+            }
+            else
+            {
+                ConfirmDeleteDeck();
+            }
+        }
+
+        private void ConfirmDeleteAllDecks()
+        {
+            if (MessageBox.Show($"Are you sure you want to delete ALL decks?",
+               "Confirm Delete All",
+               MessageBoxButton.YesNo,
+               MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                string projectRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
+                string dataPath = Path.Combine(projectRoot, "Data/Decks");
+                string[] files = Directory.GetFiles(dataPath);
+                Debug.WriteLine("Deleting ALL decks");
+                foreach (string file in files)
+                    File.Delete(file);
+            }
+        }
+
+        private void ConfirmDeleteDeck()
+        {
+            if (MessageBox.Show($"Are you sure you want to delete {ListOfDecks[SelectedIndex]}",
+                "Confirm Delete",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                string projectRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
+                string dataPath = Path.Combine(projectRoot, "Data/Decks");
+                string filePath = Path.Combine(dataPath, ListOfDecks[SelectedIndex] + ".json");
+                Debug.WriteLine($"Deleting {filePath}");
+                File.Delete(filePath);
+            }
+        }
         private void SaveQuestion()
         {
             Deck deck = new Deck(SelectedCard.DeckName);
