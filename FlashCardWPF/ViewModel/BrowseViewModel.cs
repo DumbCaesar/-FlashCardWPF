@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using FlashCardWPF.Model;
 
@@ -21,13 +22,27 @@ namespace FlashCardWPF.ViewModel
         private Card _selectedCard;
         private int _selectedIndex;
         private ObservableCollection<Card> _listOfCards;
-        public ObservableCollection<string> ListOfDecks { get; set; }
+        private ObservableCollection<string> _listOfDecks;
         public string CurrentDeckName { get; set; }
+        public event Action? DeckDeleted;
 
         public ICommand SaveCardCommand { get; set; }
         public ICommand DeleteCardCommand { get; set; }
         public ICommand CreateNewCardCommand { get; set; }
+        public ICommand DeleteDeckCommand { get; set; }
 
+        public ObservableCollection<string> ListOfDecks
+        {
+            get => _listOfDecks;
+            set
+            {
+                if (_listOfDecks != value)
+                {
+                    _listOfDecks = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public int SelectedIndex
         {
             get => _selectedIndex;
@@ -36,11 +51,15 @@ namespace FlashCardWPF.ViewModel
                 if (_selectedIndex != value)
                 {
                     _selectedIndex = value;
+                    Debug.WriteLine($"New SelectedIndex: {_selectedIndex}");
                     OnPropertyChanged();
 
-                    CurrentDeckName = ListOfDecks[_selectedIndex];
-                    ListOfCards = GetCards();
-                    Debug.WriteLine($"Changed deck to {CurrentDeckName}");
+                    if (_selectedIndex >= 0)
+                    {
+                        CurrentDeckName = ListOfDecks[_selectedIndex];
+                        ListOfCards = GetCards();
+                        Debug.WriteLine($"Changed deck to {CurrentDeckName}");
+                    }
                 }
             }
         }
@@ -84,8 +103,56 @@ namespace FlashCardWPF.ViewModel
             SaveCardCommand = new RelayCommand(_ => SaveQuestion());
             CreateNewCardCommand = new RelayCommand(_ => CreateNewCard());
             DeleteCardCommand = new RelayCommand(_ => DeleteCard());
+            DeleteDeckCommand = new RelayCommand(_ => DeleteDeck());
         }
 
+        private void DeleteDeck()
+        {
+            if (SelectedIndex == 0)
+            {
+                ConfirmDeleteAllDecks();
+                SelectedIndex = -1; // trigger refresh
+            }
+            else
+            {
+                ConfirmDeleteDeck();
+            }
+            ListOfDecks = GetDeckNames();
+            SelectedIndex = 0;
+
+            DeckDeleted?.Invoke();
+        }
+
+        private void ConfirmDeleteAllDecks()
+        {
+            if (MessageBox.Show($"Are you sure you want to delete ALL decks?",
+               "Confirm Delete All",
+               MessageBoxButton.YesNo,
+               MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                string projectRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
+                string dataPath = Path.Combine(projectRoot, "Data/Decks");
+                string[] files = Directory.GetFiles(dataPath);
+                Debug.WriteLine("Deleting ALL decks");
+                foreach (string file in files)
+                    File.Delete(file);
+            }
+        }
+
+        private void ConfirmDeleteDeck()
+        {
+            if (MessageBox.Show($"Are you sure you want to delete {ListOfDecks[SelectedIndex]}",
+                "Confirm Delete",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                string projectRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
+                string dataPath = Path.Combine(projectRoot, "Data/Decks");
+                string filePath = Path.Combine(dataPath, ListOfDecks[SelectedIndex] + ".json");
+                Debug.WriteLine($"Deleting {filePath}");
+                File.Delete(filePath);
+            }
+        }
         private void SaveQuestion()
         {
             Deck deck = new Deck(SelectedCard.DeckName);
