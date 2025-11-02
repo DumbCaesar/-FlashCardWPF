@@ -24,6 +24,7 @@ namespace FlashCardWPF.ViewModel
         private ObservableCollection<Card> _listOfCards;
         private ObservableCollection<string> _listOfDecks;
         public string CurrentDeckName { get; set; }
+        public event Action? DeckDeleted;
 
         public ICommand SaveCardCommand { get; set; }
         public ICommand DeleteCardCommand { get; set; }
@@ -110,6 +111,7 @@ namespace FlashCardWPF.ViewModel
             if (SelectedIndex == 0)
             {
                 ConfirmDeleteAllDecks();
+                SelectedIndex = -1; // trigger refresh
             }
             else
             {
@@ -117,6 +119,8 @@ namespace FlashCardWPF.ViewModel
             }
             ListOfDecks = GetDeckNames();
             SelectedIndex = 0;
+
+            DeckDeleted?.Invoke();
         }
 
         private void ConfirmDeleteAllDecks()

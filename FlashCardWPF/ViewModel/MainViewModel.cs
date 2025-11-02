@@ -56,13 +56,7 @@ namespace FlashCardWPF.ViewModel
         public MainViewModel()
         {
             Decks = new ObservableCollection<string>();
-            string projectRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
-            string dataPath = Path.Combine(projectRoot, "Data/Decks");
-            string[] files = Directory.GetFiles(dataPath);
-            foreach (string file in files)
-            {
-                Decks.Add(Path.GetFileNameWithoutExtension(file));
-            }
+            LoadDecks();
 
             DeckDoubleClickCommand = new RelayCommand(
                 _ => OnDeckDoubleClick());
@@ -76,8 +70,23 @@ namespace FlashCardWPF.ViewModel
         private void OnBrowseCards()
         {
             BrowseViewModel = new BrowseViewModel();
+            BrowseViewModel.DeckDeleted += LoadDecks;
+
             var browseView = new BrowseView { DataContext = BrowseViewModel };
             browseView.Show();
+        }
+
+        private void LoadDecks()
+        {
+            Decks.Clear();
+            string projectRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
+            string dataPath = Path.Combine(projectRoot, "Data/Decks");
+            string[] files = Directory.GetFiles(dataPath);
+            foreach (string file in files)
+            {
+                Decks.Add(Path.GetFileNameWithoutExtension(file));
+            }
+
         }
         private void OnCreateDeck()
         {
