@@ -73,7 +73,7 @@ namespace FlashCardWPF.ViewModel
             BrowseViewModel.DeckDeleted += LoadDecks;
 
             var browseView = new BrowseView { DataContext = BrowseViewModel };
-            browseView.Show();
+            browseView.ShowDialog();
         }
 
         private void LoadDecks()
