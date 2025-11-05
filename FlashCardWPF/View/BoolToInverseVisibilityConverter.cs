@@ -5,6 +5,9 @@ using System.Windows.Data;
 
 namespace FlashCardWPF.View
 {
+    /// <summary>
+    /// Converts boolean values to Visibility properties for UI XAML
+    /// </summary>
     public class BoolToVisibilityConverter : IValueConverter
     {
         public static readonly BoolToVisibilityConverter Instance = new();
