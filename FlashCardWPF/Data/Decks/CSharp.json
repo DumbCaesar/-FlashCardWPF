@@ -5,18 +5,18 @@
       "Front": "What are the basic value types in C#?",
       "Back": "int, double, float, bool, char, decimal, byte, long, short",
       "DeckName": "CSharp",
-      "Interval": 2,
-      "EaseFactor": null,
-      "NextReview": "2025-10-01T14:09:57.0290878+02:00",
-      "IsNew": true
+      "Interval": 1,
+      "EaseFactor": 2.5,
+      "NextReview": "2025-11-06T10:27:45.6659915+01:00",
+      "IsNew": false
     },
     {
       "Front": "What is the difference between string and String in C#?",
       "Back": "string is an alias for System.String. They are identical, but lowercase string is preferred by convention",
       "DeckName": "CSharp",
-      "Interval": 0,
-      "EaseFactor": 1.95,
-      "NextReview": "2025-11-03T10:48:39.8524151+01:00",
+      "Interval": 4,
+      "EaseFactor": 2.15,
+      "NextReview": "2025-11-09T10:27:31.089925+01:00",
       "IsNew": false
     },
     {
@@ -25,160 +25,160 @@
       "DeckName": "CSharp",
       "Interval": 5,
       "EaseFactor": 2.5,
-      "NextReview": "2025-11-08T10:38:42.3393669+01:00",
+      "NextReview": "2025-11-10T10:27:31.3852682+01:00",
       "IsNew": false
     },
     {
       "Front": "What is the null-conditional operator in C#?",
       "Back": "The ?. operator, which safely accesses members only if the object is not null (e.g., obj?.Property)",
       "DeckName": "CSharp",
-      "Interval": 4,
+      "Interval": 10,
       "EaseFactor": 2.6,
-      "NextReview": "2025-11-03T13:09:42.8674272+01:00",
+      "NextReview": "2025-11-15T10:27:31.7090574+01:00",
       "IsNew": false
     },
     {
       "Front": "What does the ?? operator do in C#?",
       "Back": "The null-coalescing operator returns the left operand if not null, otherwise returns the right operand",
       "DeckName": "CSharp",
-      "Interval": 2,
+      "Interval": 5,
       "EaseFactor": 2.65,
-      "NextReview": "2025-11-01T13:09:58.9357731+01:00",
+      "NextReview": "2025-11-10T10:27:32.0610392+01:00",
       "IsNew": false
     },
     {
       "Front": "What is a namespace in C#?",
       "Back": "A container that organizes code and prevents naming conflicts by grouping related classes",
       "DeckName": "CSharp",
-      "Interval": 2,
+      "Interval": 5,
       "EaseFactor": null,
-      "NextReview": "2025-11-01T13:10:04.8896915+01:00",
+      "NextReview": "2025-11-10T10:27:32.3756533+01:00",
       "IsNew": false
     },
     {
       "Front": "What is the difference between const and readonly in C#?",
       "Back": "const is compile-time constant and must be initialized at declaration. readonly can be initialized at runtime in constructor",
       "DeckName": "CSharp",
-      "Interval": 2,
+      "Interval": 5,
       "EaseFactor": 2.65,
-      "NextReview": "2025-11-01T13:10:14.5570687+01:00",
+      "NextReview": "2025-11-10T10:27:33.3505812+01:00",
       "IsNew": false
     },
     {
       "Front": "What are properties in C#?",
       "Back": "Members that provide a flexible mechanism to read, write, or compute private fields using get and set accessors",
       "DeckName": "CSharp",
-      "Interval": 4,
+      "Interval": 10,
       "EaseFactor": 2.6,
-      "NextReview": "2025-11-03T13:09:51.18233+01:00",
+      "NextReview": "2025-11-15T10:27:33.6655703+01:00",
       "IsNew": false
     },
     {
       "Front": "What is an auto-implemented property?",
       "Back": "A property where the compiler automatically creates a private backing field (e.g., public int Age { get; set; })",
       "DeckName": "CSharp",
-      "Interval": 2,
+      "Interval": 4,
       "EaseFactor": 2.1999999999999997,
-      "NextReview": "2025-11-01T13:10:35.7105874+01:00",
+      "NextReview": "2025-11-09T10:27:34.6409454+01:00",
       "IsNew": false
     },
     {
       "Front": "What does the \u0027static\u0027 keyword mean for a class member?",
       "Back": "The member belongs to the class itself rather than instances, and is shared across all objects",
       "DeckName": "CSharp",
-      "Interval": 2,
+      "Interval": 5,
       "EaseFactor": 2.65,
-      "NextReview": "2025-11-01T13:10:06.9317421+01:00",
+      "NextReview": "2025-11-10T10:27:35.023584+01:00",
       "IsNew": false
     },
     {
       "Front": "What is a constructor in C#?",
       "Back": "A special method that is called when an object is instantiated, used to initialize object state",
       "DeckName": "CSharp",
-      "Interval": 2,
+      "Interval": 5,
       "EaseFactor": 2.65,
-      "NextReview": "2025-11-01T13:15:05.7196459+01:00",
+      "NextReview": "2025-11-10T10:27:35.562084+01:00",
       "IsNew": false
     },
     {
       "Front": "What is method overloading?",
       "Back": "Defining multiple methods with the same name but different parameters (different type, number, or order)",
       "DeckName": "CSharp",
-      "Interval": 2,
+      "Interval": 5,
       "EaseFactor": null,
-      "NextReview": "2025-11-01T13:15:03.5320368+01:00",
+      "NextReview": "2025-11-10T10:27:36.1104769+01:00",
       "IsNew": false
     },
     {
       "Front": "What is the \u0027this\u0027 keyword used for?",
       "Back": "To refer to the current instance of the class, often used to distinguish between parameters and fields",
       "DeckName": "CSharp",
-      "Interval": 4,
+      "Interval": 10,
       "EaseFactor": 2.6,
-      "NextReview": "2025-11-03T13:14:47.983153+01:00",
+      "NextReview": "2025-11-15T10:27:36.710207+01:00",
       "IsNew": false
     },
     {
       "Front": "What is a List\u003CT\u003E in C#?",
       "Back": "A generic collection that represents a strongly-typed list of objects with dynamic size",
       "DeckName": "CSharp",
-      "Interval": 2,
+      "Interval": 5,
       "EaseFactor": 2.5,
-      "NextReview": "2025-11-01T13:15:07.3302687+01:00",
+      "NextReview": "2025-11-10T10:27:37.429858+01:00",
       "IsNew": false
     },
     {
       "Front": "What is string interpolation in C#?",
       "Back": "A feature using $ prefix to embed expressions inside strings (e.g., $\u0022Hello {name}\u0022)",
       "DeckName": "CSharp",
-      "Interval": 4,
+      "Interval": 10,
       "EaseFactor": 2.6,
-      "NextReview": "2025-11-03T13:14:52.1991204+01:00",
+      "NextReview": "2025-11-15T10:27:38.1514546+01:00",
       "IsNew": false
     },
     {
       "Front": "What is the difference between == and Equals() for strings?",
       "Back": "Both compare string content, but == is operator overloaded while Equals() is a method. Both work for string comparison",
       "DeckName": "CSharp",
-      "Interval": 2,
+      "Interval": 5,
       "EaseFactor": 2.65,
-      "NextReview": "2025-11-01T13:15:09.2246758+01:00",
+      "NextReview": "2025-11-10T10:27:40.3261853+01:00",
       "IsNew": false
     },
     {
       "Front": "What is a try-catch block used for?",
       "Back": "Exception handling - try contains code that might throw an exception, catch handles the exception",
       "DeckName": "CSharp",
-      "Interval": 2,
+      "Interval": 5,
       "EaseFactor": 2.5,
-      "NextReview": "2025-11-01T13:15:11.0047343+01:00",
+      "NextReview": "2025-11-10T10:27:40.9648148+01:00",
       "IsNew": false
     },
     {
       "Front": "What does LINQ stand for?",
       "Back": "Language Integrated Query - provides query capabilities for collections in C#",
       "DeckName": "CSharp",
-      "Interval": 4,
+      "Interval": 10,
       "EaseFactor": 2.6,
-      "NextReview": "2025-11-03T13:14:58.2029697+01:00",
+      "NextReview": "2025-11-15T10:27:41.7593339+01:00",
       "IsNew": false
     },
     {
       "Front": "What is the \u0027new\u0027 keyword used for?",
       "Back": "To create instances of classes (objects), allocating memory on the heap",
       "DeckName": "CSharp",
-      "Interval": 2,
+      "Interval": 5,
       "EaseFactor": 2.65,
-      "NextReview": "2025-11-01T13:15:12.8771967+01:00",
+      "NextReview": "2025-11-10T10:27:42.5679281+01:00",
       "IsNew": false
     },
     {
       "Front": "What is the difference between value types and reference types?",
       "Back": "Value types store data directly (stack), reference types store a reference to data (heap). Classes are reference types, structs are value types",
       "DeckName": "CSharp",
-      "Interval": 4,
+      "Interval": 10,
       "EaseFactor": 2.6,
-      "NextReview": "2025-11-03T13:15:01.6604219+01:00",
+      "NextReview": "2025-11-15T10:27:43.3412851+01:00",
       "IsNew": false
     }
   ]
