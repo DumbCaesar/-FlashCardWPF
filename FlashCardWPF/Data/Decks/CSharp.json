@@ -14,18 +14,18 @@
       "Front": "What is the difference between string and String in C#?",
       "Back": "string is an alias for System.String. They are identical, but lowercase string is preferred by convention",
       "DeckName": "CSharp",
-      "Interval": 2,
-      "EaseFactor": 2.15,
-      "NextReview": "2025-11-01T13:10:21.8742189+01:00",
+      "Interval": 0,
+      "EaseFactor": 1.95,
+      "NextReview": "2025-11-03T10:48:39.8524151+01:00",
       "IsNew": false
     },
     {
       "Front": "What does the \u0027var\u0027 keyword do in C#?",
       "Back": "It allows implicit typing where the compiler infers the type from the assigned value",
       "DeckName": "CSharp",
-      "Interval": 2,
+      "Interval": 5,
       "EaseFactor": 2.5,
-      "NextReview": "2025-11-01T13:10:12.5091216+01:00",
+      "NextReview": "2025-11-08T10:38:42.3393669+01:00",
       "IsNew": false
     },
     {
