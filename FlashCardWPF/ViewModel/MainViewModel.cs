@@ -14,6 +14,8 @@ namespace FlashCardWPF.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        // ViewModels for different views, used to pass data from/to the views.
+
         private CardViewModel _cardViewModel;
         private NewDeckViewModel _newDeckViewModel;
 
@@ -44,8 +46,13 @@ namespace FlashCardWPF.ViewModel
             }
         }
 
+        // List of decks
         public ObservableCollection<string> Decks { get; set; }
+
+        // Selected deck to open
         public string? SelectedDeck { get; set; }
+
+        // Commands used for the buttons
         public ICommand DeckDoubleClickCommand { get; }
         public ICommand CreateNewDeckCommand { get; }
         public ICommand ImportNewDeckCommand { get; }
@@ -56,7 +63,7 @@ namespace FlashCardWPF.ViewModel
         public MainViewModel()
         {
             Decks = new ObservableCollection<string>();
-            LoadDecks();
+            LoadDecks(); // Load saved decks upon opening the app
 
             DeckDoubleClickCommand = new RelayCommand(
                 _ => OnDeckDoubleClick());
@@ -67,30 +74,12 @@ namespace FlashCardWPF.ViewModel
             OpenBrowseCommand = new RelayCommand(_ => OnBrowseCards());
         }
 
-        private void OnBrowseCards()
-        {
-            BrowseViewModel = new BrowseViewModel();
-            BrowseViewModel.DeckDeleted += LoadDecks;
-
-            var browseView = new BrowseView { DataContext = BrowseViewModel };
-            browseView.ShowDialog();
-        }
-
-        private void LoadDecks()
-        {
-            Decks.Clear();
-            string projectRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
-            string dataPath = Path.Combine(projectRoot, "Data/Decks");
-            string[] files = Directory.GetFiles(dataPath);
-            foreach (string file in files)
-            {
-                Decks.Add(Path.GetFileNameWithoutExtension(file));
-            }
-
-        }
         private void OnCreateDeck()
         {
+            // opens the new deck creation window
             NewDeckViewModel = new NewDeckViewModel();
+            // Uses the Action event from the NewDeckViewModel
+            // to update observableCollection inside MainWindow in real time
             NewDeckViewModel.DeckCreated += deckName =>
             {
                 if (!Decks.Contains(deckName))
@@ -101,8 +90,34 @@ namespace FlashCardWPF.ViewModel
             newDeck.ShowDialog();
         }
 
+        private void OnBrowseCards()
+        {
+            // opens browse view
+            BrowseViewModel = new BrowseViewModel();
+            // Also uses an event to remove the deleted deck from the UI upon deletion.
+            BrowseViewModel.DeckDeleted += LoadDecks;
+
+            var browseView = new BrowseView { DataContext = BrowseViewModel };
+            browseView.ShowDialog();
+        }
+
+        private void LoadDecks()
+        {
+            // Loads the decks from the Data/Decks folder
+            Decks.Clear();
+            string projectRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
+            string dataPath = Path.Combine(projectRoot, "Data/Decks");
+            string[] files = Directory.GetFiles(dataPath);
+            foreach (string file in files)
+            {
+                Decks.Add(Path.GetFileNameWithoutExtension(file));
+            }
+
+        }
+
         private void OnImportDeck()
         {
+            // Import external .json deck file
             string baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
             string dataDir = Path.Combine(baseDir, "Data/Decks");
 
@@ -147,11 +162,13 @@ namespace FlashCardWPF.ViewModel
 
         private void OnDeckDoubleClick()
         {
+            // Opens selected deck in card view
             CardViewModel = new CardViewModel(SelectedDeck);
             var cardView = new CardView { DataContext = CardViewModel };
             cardView.Show();
         }
 
+        // Raises property changed for binding
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
