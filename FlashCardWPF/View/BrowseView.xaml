@@ -13,6 +13,7 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
+        <!-- Left column -->
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -31,6 +32,7 @@
 
         </Grid>
 
+        <!-- Right column -->
         <StackPanel Grid.Column="1">
             <Label Content="Front" FontWeight="Bold" />
             <TextBox Margin="5" Text="{Binding SelectedCard.Front}" Height="50" AcceptsReturn="True" TextWrapping="Wrap" />

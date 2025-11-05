@@ -61,7 +61,7 @@ namespace FlashCardWPF.ViewModel
                     OnPropertyChanged();
 
                     // Deleting a deck sets index to -1
-                    // Check that we have a valid index before trying to access ListOfDecks
+                    // Check that index is valid before trying to access ListOfDecks
                     if (_selectedIndex >= 0)
                     {
                         CurrentDeckName = ListOfDecks[_selectedIndex];
