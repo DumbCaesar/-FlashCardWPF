@@ -10,14 +10,20 @@ namespace FlashCardWPF.ViewModel
 {
     public class NewDeckViewModel : INotifyPropertyChanged
     {
+
+        // Fields for input binding 
         private string _deckName;
         private string _currentQuestion;
         private string _currentAnswer;
         private Card _selectedCard;
+
+        // The Deck that holds the temp date for the new deck, until saved to Data/Decks
         private Deck NewDeck { get; set; } = new Deck();
 
+        // This event is used to update the ListBox inside the MainWindow. It get's invoked upon a new deck being created, (trough the MainWindow) and then updates the UI in real time
         public event Action<string>? DeckCreated;
 
+        // Currently SelectedCard in the UI
         public Card SelectedCard
         {
             get => _selectedCard;
@@ -32,6 +38,7 @@ namespace FlashCardWPF.ViewModel
             }
         }
 
+        // Name of the new Deck
         public string DeckName 
         {
             get => _deckName;
@@ -44,6 +51,8 @@ namespace FlashCardWPF.ViewModel
                 }
             }
         }
+
+        // current question input 
         public string CurrentQuestion
         {
             get => _currentQuestion;
@@ -57,6 +66,7 @@ namespace FlashCardWPF.ViewModel
             }
         }
 
+        // current answer input
         public string CurrentAnswer
         {
             get => _currentAnswer;
@@ -70,14 +80,17 @@ namespace FlashCardWPF.ViewModel
             }
         }
 
+        // ObservableCollection holds the Cards, and refreshes the ListBox automatically to display the new Card when added.
         public ObservableCollection<Card> Deck {  get; set; }
 
+        // Commands for UI buttons. Neccesarry in MVVM.
         public ICommand CreateDeckCommand { get; set; }
         public ICommand AddQuestionCommand { get; set; }
         public ICommand DeleteQuestionCommand { get; set; }
 
         public NewDeckViewModel()
         {
+            // init deck and commands, initilized upon opening the newdeck in the App.
             Deck = new ObservableCollection<Card>();
             CreateDeckCommand = new RelayCommand(_ => CreateDeck());
             AddQuestionCommand = new RelayCommand(_ => AddQuestion());
@@ -86,6 +99,7 @@ namespace FlashCardWPF.ViewModel
 
         private void CreateDeck()
         {
+            // Deck must have at least one card to be created.
             if(string.IsNullOrEmpty(DeckName) || Deck.Count == 0)
             {
                 MessageBox.Show("A minimum of one question is needed to create a deck!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -96,11 +110,13 @@ namespace FlashCardWPF.ViewModel
 
             try
             {
+                // Copy observable collection to List
                 foreach (Card card in Deck)
                 {
                     deck.Add(card);
                 }
 
+                // Assign data + save to .json
                 NewDeck.Name = DeckName;
                 NewDeck.Cards = deck;
                 NewDeck.SaveDeck();
@@ -113,6 +129,7 @@ namespace FlashCardWPF.ViewModel
 
             catch(Exception ex)
             {
+                // Error handling.
                 MessageBox.Show(
                 $"Failed to save deck: {ex.Message}",
                 "Error",
@@ -124,6 +141,7 @@ namespace FlashCardWPF.ViewModel
 
         private void AddQuestion()
         {
+            // Only add card when both of the card inut fields has a value, not null.
             if(CurrentQuestion != null && CurrentAnswer != null)
             {
                 Card card = new Card(CurrentQuestion, CurrentAnswer);
@@ -137,6 +155,7 @@ namespace FlashCardWPF.ViewModel
 
         private void DeleteQuestion()
         {
+            // Remove selected card
             if (SelectedCard != null)
             {
                 Deck.Remove(SelectedCard);
@@ -147,6 +166,7 @@ namespace FlashCardWPF.ViewModel
             }
         }
 
+        // Property changed event for data binding
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

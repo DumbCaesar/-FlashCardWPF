@@ -13,6 +13,7 @@ namespace FlashCardWPF.Services
 
         public StatsService()
         {
+            // Build stats file path inside Data folder
             string baseDir = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "..",
@@ -26,8 +27,10 @@ namespace FlashCardWPF.Services
 
         public DailyStats LoadTodayStats()
         {
+            // Today used as an identifier
             string today = DateTime.Today.ToString("yyyy-MM-dd");
 
+            // Load file if exists + data matches today
             if (File.Exists(_statsFilePath))
             {
                 try
@@ -50,12 +53,13 @@ namespace FlashCardWPF.Services
                 }
             }
 
-            // Return new stats for today
+            // Create new stats if none exists today
             return new DailyStats { Date = today };
         }
 
         public void SaveStats(DailyStats stats)
         {
+            // Save stats as JSON
             var options = new JsonSerializerOptions { WriteIndented = true };
             string json = JsonSerializer.Serialize(stats, options);
             File.WriteAllText(_statsFilePath, json);
@@ -64,6 +68,7 @@ namespace FlashCardWPF.Services
 
         public void UpdateStats(int cardsReviewed, TimeSpan sessionTime)
         {
+            // Add new progress to today's stats
             var stats = LoadTodayStats();
             stats.TotalCards += cardsReviewed;
             stats.TotalStudyTimeSeconds += sessionTime.TotalSeconds;

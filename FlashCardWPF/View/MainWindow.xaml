@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="Flashcard App" Height="360" Width="500" ResizeMode="CanMinimize">
     <StackPanel HorizontalAlignment="Center">
+        <!-- Top navigation -->
         <Border CornerRadius="25" BorderBrush="Black" BorderThickness="1" Background="White" Margin="10">
             <Grid VerticalAlignment="Top">
                 <Grid.ColumnDefinitions>
@@ -24,6 +25,7 @@
                 <Button Content="Sync" Grid.Column="4" Margin="5" FontWeight="Bold" Foreground="DodgerBlue" Background="White" BorderThickness="0"/>
             </Grid>
         </Border>
+        <!-- The ListBox that displays all the decks -->
         <ListBox x:Name="DecksListBox" ItemsSource="{Binding Decks}"  Width="400" Height="200" BorderBrush="Black" BorderThickness="1" SelectedItem="{Binding SelectedDeck, Mode=TwoWay}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
@@ -33,6 +35,7 @@
             </i:Interaction.Triggers>
         </ListBox>
         <Label Content="{Binding CardViewModel.StudySummary}" HorizontalAlignment="Center" Margin="0 5 0 5"/>
+        <!-- Bottom Buttons -->
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="8">
         <Grid HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
