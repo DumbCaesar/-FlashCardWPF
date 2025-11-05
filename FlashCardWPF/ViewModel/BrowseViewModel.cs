@@ -162,7 +162,7 @@ namespace FlashCardWPF.ViewModel
             {
                 string projectRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", ".."); // Navigate from bin/Debug/net9.0 up to project root
                 string dataPath = Path.Combine(projectRoot, "Data/Decks");
-                string filePath = Path.Combine(dataPath, ListOfDecks[SelectedIndex] + ".json"); // Add file extension
+                string filePath = Path.Combine(dataPath, ListOfDecks[SelectedIndex] + ".json"); // Add file name and extension to path
                 Debug.WriteLine($"Deleting {filePath}");
                 File.Delete(filePath);
             }

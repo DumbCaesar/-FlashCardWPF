@@ -9,20 +9,23 @@ using System.Threading.Tasks;
 
 namespace FlashCardWPF.Model
 {
+    /// <summary>
+    /// Class used to represent a deck of flash cards
+    /// </summary>
     public class Deck
     {
-        public string? Name { get; set; }
-        public List<Card> Cards { get; set; } = new List<Card>();
+        public string? Name { get; set; } // Name of deck. Used as filename and for UI
+        public List<Card> Cards { get; set; } = new List<Card>(); // List of Card objects for each flash card belonging to the deck
 
-        public Deck() { }
-        public Deck(string name)
+        public Deck() { } // constructor used for deserialization
+        public Deck(string name) // constructor used for creating new decks
         {
             Name = name;
         }
 
         public static Deck LoadDeck(string deckName)
         {
-            string baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
+            string baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", ".."); // Navigate from bin/Debug/net9.0 up to project root
             string dataDir = Path.Combine(baseDir, "Data/Decks");
             string filePath = Path.Combine(dataDir, $"{deckName}.json");
             var json = File.ReadAllText(filePath);
@@ -31,13 +34,13 @@ namespace FlashCardWPF.Model
                 PropertyNameCaseInsensitive = true,
             };
 
-            var deck = JsonSerializer.Deserialize<Deck>(json, options);
+            var deck = JsonSerializer.Deserialize<Deck>(json, options); // deserialize json
             if (deck != null)
             {
                 deck.Name = deckName;
                 foreach (var card in deck.Cards)
                 {
-                    card.DeckName = deckName;
+                    card.DeckName = deckName; // add name of deck to each card
                 }
             }
             return deck ?? throw new InvalidOperationException("Failed to load deck");
@@ -45,7 +48,7 @@ namespace FlashCardWPF.Model
 
         public void SaveDeck()
         {
-            string baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..");
+            string baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", ".."); // Navigate from bin/Debug/net9.0 up to project root
             string dataDir = Path.Combine(baseDir, "Data/Decks");
             string filePath = Path.Combine(dataDir, $"{Name}.json");
 
@@ -55,8 +58,8 @@ namespace FlashCardWPF.Model
                 WriteIndented = true
             };
 
-            string json = JsonSerializer.Serialize(this, options);
-            File.WriteAllText(filePath, json);
+            string json = JsonSerializer.Serialize(this, options); // serialize deck object into json
+            File.WriteAllText(filePath, json); // write json to data/decks/deckname.json
             Debug.WriteLine($"Deck saved to {filePath}");
         }
     }
