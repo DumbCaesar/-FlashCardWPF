@@ -7,6 +7,7 @@ namespace FlashCardWPF.View
 {
     /// <summary>
     /// Converts boolean values to Visibility properties for UI XAML
+    /// True = Visible, False = Collapsed
     /// </summary>
     public class BoolToVisibilityConverter : IValueConverter
     {
@@ -25,7 +26,10 @@ namespace FlashCardWPF.View
             return false;
         }
     }
-
+    /// <summary>
+    /// Converts boolean values to inverse Visibility properties for UI XAML
+    /// True = Collapsed, False = Visible
+    /// </summary>
     public class BoolToInverseVisibilityConverter : IValueConverter
     {
         public static readonly BoolToInverseVisibilityConverter Instance = new();
